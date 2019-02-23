@@ -11,13 +11,16 @@
 
  - 方法一（推荐）
 
-    使用雀魂PLUS。请先下载雀魂PLUS， [下载地址]([https://link](https://github.com/MajsoulPlus/majsoul-plus/releases))。将**我全都要-UsernameFull.mspe**导入即可。
+    使用雀魂PLUS。请先下载雀魂PLUS， [下载地址](https://github.com/MajsoulPlus/majsoul-plus/releases)。在**插件界面**（十分重要！十分重要！十分重要！）将**我全都要-UsernameFull.mspe**导入即可。
 
  - 方法二（不推荐，需node，较麻烦）
 
-    参考 [雀魂立绘魔改]([https://link](https://github.com/aoarashi1988/majsoul_custom_charactor))，替换掉**UI_Sushe.js**
+    参考 [雀魂立绘魔改](https://github.com/aoarashi1988/majsoul_custom_charactor)，替换掉**UI_Sushe.js**
 
 在这里参考了 [baka-levey的代码](https://github.com/baka-levey/majsoul_test)。特此感谢。
+
+## 其他
+如需更换初始人物，将`i.main_character_id = 200008,`（约在1900行左右）替换为你喜欢的初始角色即可。
 
 ##### 本修改程序遵循 WTFPL 协议
 ```
