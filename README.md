@@ -22,6 +22,7 @@
  - 方法三（推荐）
 
     使用油猴脚本，即tampermonkey，下载和使用方法自行百度。在油猴里导入**New Userscript.user**即可。
+    或者使用[greasyfork](https://greasyfork.org/zh-CN/scripts/378201-%E9%9B%80%E9%AD%82mod)
     
 在这里参考了 [baka-levey的代码](https://github.com/baka-levey/majsoul_test)。特此感谢。
 
