@@ -1874,9 +1874,6 @@
                         for(var j = 1; j <= 8; j++) {
                             var id = 200000 + j;
                             var skin = 400002 + j * 100;
-                            //八木唯还不能婚
-                            if(j == 7)
-                                skin--;
                             i.characters.push({
                                 charid: id,
                                 level: 5,
