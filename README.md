@@ -1,5 +1,7 @@
 # 一个雀魂魔改mod,解锁全部人物，道具等
 
+>2019.3.28更新，添加八木唯结婚效果
+
 >注意：解锁人物仅在本地有效，别人还是只能看到你原来的角色。<br/>
 魔改千万条，安全第一条。<br/>
 使用不规范，账号两行泪。
@@ -21,7 +23,7 @@
 
  - 方法三（推荐）
 
-    使用油猴脚本，即tampermonkey，下载和使用方法自行百度。在油猴里导入**New Userscript.user**即可。
+    使用油猴脚本，即tampermonkey，下载和使用方法自行百度。在油猴里导入**雀魂mod.user.js**即可。
     或者使用[greasyfork](https://greasyfork.org/zh-CN/scripts/378201-%E9%9B%80%E9%AD%82mod)
     
 在这里参考了 [baka-levey的代码](https://github.com/baka-levey/majsoul_test)。特此感谢。
