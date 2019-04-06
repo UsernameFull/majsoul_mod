@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         雀魂mod
-// @namespace    https://github.com/UsernameFull/majsoul_mod 
+// @namespace    http://tampermonkey.net/
 // @version      0.0.3
 // @description  雀魂mod,解锁了全人物道具等。。。
 // @author       You
@@ -26,7 +26,7 @@ setTimeout(function(){
           var h = o[Math.floor(Math.random() * o.length)]
           return {
             path: r[h].path,
-            volume: chara.sound_volume,
+            volume:view.AudioMgr.getCVmute(chara.id) ? 0 : view.AudioMgr.getCVvolume(chara.id) * chara.sound_volume,
             time_length: r[h].time_length
           }
         }
