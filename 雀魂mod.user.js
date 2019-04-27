@@ -368,9 +368,7 @@ setTimeout(
               app.NetAgent.AddListener2MJ(
                 "NotifyPlayerLoadGameReady",
                 Laya.Handler.create(this, function(t) {
-                  app.Log.log(
-                    "NotifyPlayerLoadGameReady: " + JSON.stringify(t)
-                  ),
+                  app.Log.log("NotifyPlayerLoadGameReady: " + JSON.stringify(t)),
                     (e.loaded_player_count = t.ready_id_list.length),
                     e.load_over &&
                       uiscript.UI_Loading.Inst.enable &&
@@ -451,8 +449,8 @@ setTimeout(
               t.LobbyNetMgr.Inst.connect_state == t.EConnectState.none ||
               t.LobbyNetMgr.Inst.connect_state == t.EConnectState.disconnect
                 ? this._setState(t.EConnectState.disconnect)
-                : t.LobbyNetMgr.Inst.connect_state ==
-                    t.EConnectState.connecting && GameMgr.Inst.logined
+                : t.LobbyNetMgr.Inst.connect_state == t.EConnectState.connecting &&
+                  GameMgr.Inst.logined
                 ? this.reconnect_count >= this.reconnect_span.length
                   ? this._setState(t.EConnectState.disconnect)
                   : (Laya.timer.once(
@@ -483,9 +481,7 @@ setTimeout(
                 ),
                 this.link_index < 0 || this.link_index >= this.urls.length
                   ? (this._setState(t.EConnectState.none),
-                    uiscript.UIMgr.Inst.ShowErrorInfo(
-                      t.Tools.strOfLocalization(59)
-                    ),
+                    uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(59)),
                     this._SendDebugInfo(),
                     view.DesktopMgr.Inst &&
                       !view.DesktopMgr.Inst.active &&
@@ -507,17 +503,14 @@ setTimeout(
                   !(function(n) {
                     var a = JSON.parse(n);
                     if (
-                      (app.Log.log(
-                        "mj _fetch_gateway func_success data = " + n
-                      ),
+                      (app.Log.log("mj _fetch_gateway func_success data = " + n),
                       a.maintenance)
                     )
                       i._setState(t.EConnectState.none),
                         uiscript.UIMgr.Inst.ShowErrorInfo(
                           t.Tools.strOfLocalization(2009)
                         ),
-                        view.DesktopMgr.Inst.active ||
-                          t.Scene_MJ.Inst.ForceOut();
+                        view.DesktopMgr.Inst.active || t.Scene_MJ.Inst.ForceOut();
                     else if (a.servers && a.servers.length > 0) {
                       for (
                         var r = a.servers, s = t.Tools.deal_gateway(r), o = 0;
@@ -554,8 +547,7 @@ setTimeout(
                             t.Tools.strOfLocalization(58)
                           ),
                           i._SendDebugInfo(),
-                          view.DesktopMgr.Inst.active ||
-                            t.Scene_MJ.Inst.ForceOut(),
+                          view.DesktopMgr.Inst.active || t.Scene_MJ.Inst.ForceOut(),
                           i._setState(t.EConnectState.none));
                   });
                 var r = [];
@@ -579,25 +571,21 @@ setTimeout(
                       : e == t.EConnectState.tryconnect
                       ? ((uiscript.UI_Common.Inst.label_net_mj.text =
                           "尝试连接麻将服务器"),
-                        (uiscript.UI_Common.Inst.label_net_mj.color =
-                          "#000000"))
+                        (uiscript.UI_Common.Inst.label_net_mj.color = "#000000"))
                       : e == t.EConnectState.connecting
                       ? ((uiscript.UI_Common.Inst.label_net_mj.text =
                           "麻将服务器：正常"),
-                        (uiscript.UI_Common.Inst.label_net_mj.color =
-                          "#00ff00"))
+                        (uiscript.UI_Common.Inst.label_net_mj.color = "#00ff00"))
                       : e == t.EConnectState.disconnect
                       ? ((uiscript.UI_Common.Inst.label_net_mj.text =
                           "麻将服务器：断开连接"),
-                        (uiscript.UI_Common.Inst.label_net_mj.color =
-                          "#ff0000"),
+                        (uiscript.UI_Common.Inst.label_net_mj.color = "#ff0000"),
                         uiscript.UI_Disconnect.Inst &&
                           uiscript.UI_Disconnect.Inst.show())
                       : e == t.EConnectState.reconnecting &&
                         ((uiscript.UI_Common.Inst.label_net_mj.text =
                           "麻将服务器：正在重连"),
-                        (uiscript.UI_Common.Inst.label_net_mj.color =
-                          "#ff0000"),
+                        (uiscript.UI_Common.Inst.label_net_mj.color = "#ff0000"),
                         uiscript.UI_Disconnect.Inst &&
                           uiscript.UI_Disconnect.Inst.show())));
             }),
@@ -660,23 +648,20 @@ setTimeout(
                           0;
                           for (var l = 0; l < n.players.length; l++)
                             if (n.players[l].account_id == o) {
-                              a[l] = n.players[l];
-                              console.log("n_id:" + a[l].account_id);
+                              a[h] = n.players[l];
+                              console.log("n_id:" + a[h].account_id);
                               console.log(GameMgr.Inst.account_id);
                               //修改牌桌上人物头像及皮肤
-                              if (a[l].account_id == GameMgr.Inst.account_id) {
-                                (a[l].character = {
+                              if (a[h].account_id == GameMgr.Inst.account_id) {
+                                (a[h].character = {
                                   charid: GameMgr.Inst.account_data.my_charid,
                                   level: 5,
                                   exp: 0,
-                                  skin:
-                                    GameMgr.Inst.account_data.my_character.skin,
-                                  views:
-                                    GameMgr.Inst.account_data.my_character
-                                      .views,
+                                  skin: GameMgr.Inst.account_data.my_character.skin,
+                                  views: GameMgr.Inst.account_data.my_character.views,
                                   is_upgraded: 1
                                 }),
-                                  (a[l].avatar_id =
+                                  (a[h].avatar_id =
                                     GameMgr.Inst.account_data.my_character.skin);
                               }
                               //end
@@ -703,11 +688,7 @@ setTimeout(
                             }
                           });
                       (e.loaded_player_count = n.ready_id_list.length),
-                        e._AuthSuccess(
-                          a,
-                          n.is_game_start,
-                          n.game_config.toJSON()
-                        );
+                        e._AuthSuccess(a, n.is_game_start, n.game_config.toJSON());
                     }
                   }
                 );
@@ -735,11 +716,7 @@ setTimeout(
                         },
                         function(e, i) {
                           e || i.error
-                            ? (uiscript.UIMgr.Inst.showNetReqError(
-                                "syncGame",
-                                e,
-                                i
-                              ),
+                            ? (uiscript.UIMgr.Inst.showNetReqError("syncGame", e, i),
                               t.Scene_MJ.Inst.ForceOut())
                             : (app.Log.log("[syncGame] " + JSON.stringify(i)),
                               i.isEnd
@@ -768,9 +745,7 @@ setTimeout(
                         Laya.Handler.create(a, function() {
                           i
                             ? Laya.timer.frameOnce(10, a, function() {
-                                app.Log.log(
-                                  "重连信息2 round_id:-1 step:" + 1e6
-                                ),
+                                app.Log.log("重连信息2 round_id:-1 step:" + 1e6),
                                   view.DesktopMgr.Inst.Reset(),
                                   (view.DesktopMgr.Inst.duringReconnect = !0),
                                   app.NetAgent.sendReq2MJ(
@@ -781,9 +756,7 @@ setTimeout(
                                       step: 1e6
                                     },
                                     function(e, i) {
-                                      app.Log.log(
-                                        "syncGame " + JSON.stringify(i)
-                                      ),
+                                      app.Log.log("syncGame " + JSON.stringify(i)),
                                         e || i.error
                                           ? (uiscript.UIMgr.Inst.showNetReqError(
                                               "syncGame",
@@ -815,9 +788,7 @@ setTimeout(
                                             i
                                           ),
                                           t.Scene_MJ.Inst.ForceOut())
-                                        : (uiscript.UI_Loading.Inst.setProgressVal(
-                                            1
-                                          ),
+                                        : (uiscript.UI_Loading.Inst.setProgressVal(1),
                                           app.Log.log("enterGame"),
                                           a._EnterGame(i),
                                           view.DesktopMgr.Inst.fetchLinks());
@@ -830,9 +801,7 @@ setTimeout(
                     Laya.Handler.create(
                       this,
                       function(t) {
-                        return uiscript.UI_Loading.Inst.setProgressVal(
-                          0.1 + 0.8 * t
-                        );
+                        return uiscript.UI_Loading.Inst.setProgressVal(0.1 + 0.8 * t);
                       },
                       null,
                       !1
@@ -2658,8 +2627,9 @@ setTimeout(
                       //},
                       // function(t, e) {}
                       //),
-                      (GameMgr.Inst.account_data.avatar_id =
-                        t.UI_Sushe.characters[h].skin);
+                      (GameMgr.Inst.account_data.my_charid=t.UI_Sushe.main_character_id),
+                      (GameMgr.Inst.account_data.avatar_id =t.UI_Sushe.characters[e].skin),
+                    (GameMgr.Inst.account_data.my_character.skin=t.UI_Sushe.characters[e].skin);
                   }
                 } else
                   t.UIMgr.Inst.ShowErrorInfo(
@@ -3406,16 +3376,16 @@ setTimeout(
                   this.change_select(this.select_index),
                   n.characters[this.select_index].charid ==
                     n.main_character_id &&
-                    (GameMgr.Inst.account_data.avatar_id = t),
-                  app.NetAgent.sendReq2Lobby(
-                    "Lobby",
-                    "changeCharacterSkin",
-                    {
-                      character_id: n.characters[this.select_index].charid,
-                      skin: t
-                    },
-                    function(t, e) {}
-                  );
+                    (GameMgr.Inst.account_data.avatar_id = t);
+                //   app.NetAgent.sendReq2Lobby(
+                //     "Lobby",
+                //     "changeCharacterSkin",
+                //     {
+                //       character_id: n.characters[this.select_index].charid,
+                //       skin: t
+                //     },
+                //     function(t, e) {}
+                //   );
               }),
               (n.prototype.say = function(t) {
                 var e = this,
@@ -3626,8 +3596,7 @@ setTimeout(
               (s.getChildByName("choose").visible = n == this.select_index),
                 r.skin.setSkin(t.UI_Sushe.characters[n].skin, "bighead"),
                 (s.getChildByName("using").visible =
-                  t.UI_Sushe.characters[n].charid ==
-                  t.UI_Sushe.main_character_id),
+                  t.UI_Sushe.characters[n].charid == t.UI_Sushe.main_character_id),
                 (s.getChildByName(
                   "label_name"
                 ).text = cfg.item_definition.character.find(
@@ -3636,32 +3605,29 @@ setTimeout(
             }),
             (i.prototype.onClickAtHead = function(e) {
               if (this.select_index == e) {
-                if (
-                  t.UI_Sushe.characters[e].charid !=
-                  t.UI_Sushe.main_character_id
-                ) {
+                if (t.UI_Sushe.characters[e].charid != t.UI_Sushe.main_character_id) {
                   var i = t.UI_Sushe.main_character_id;
-                  (t.UI_Sushe.main_character_id =
-                    t.UI_Sushe.characters[e].charid),
-                    //屏蔽改变宿舍角色的网络请求
+                  (t.UI_Sushe.main_character_id = t.UI_Sushe.characters[e].charid),
                     // app.NetAgent.sendReq2Lobby(
-                    //     "Lobby",
-                    //     "changeMainCharacter",
-                    //     {
-                    //       character_id: t.UI_Sushe.main_character_id
-                    //     },
-                    //     function(t, e) {}
-                    //   ),
-                    (GameMgr.Inst.account_data.avatar_id =
-                      t.UI_Sushe.characters[e].skin),
-                      (GameMgr.Inst.account_data.my_charid =
-                        t.UI_Sushe.main_character_id),
-                        (GameMgr.Inst.account_data.my_character.skin=t.UI_Sushe.characters[e].skin)
-                      ;
-
-                  for (var n = 0; n < t.UI_Sushe.characters.length; n++)
-                    t.UI_Sushe.characters[n].charid == i &&
-                      this.scrollview.wantToRefreshItem(n);
+                    //   "Lobby",
+                    //   "changeMainCharacter",
+                    //   {
+                    //     character_id: t.UI_Sushe.main_character_id
+                    //   },
+                    //   function(t, e) {}
+                    // ),
+                    console.log(t.UI_Sushe.characters[e].skin),
+                    (GameMgr.Inst.account_data.my_charid=t.UI_Sushe.main_character_id),
+                    (GameMgr.Inst.account_data.my_character.skin=t.UI_Sushe.characters[e].skin),
+                    (GameMgr.Inst.account_data.avatar_id =t.UI_Sushe.characters[e].skin);
+                  for (var n = 0; n < t.UI_Sushe.characters.length; n++){
+                    if(t.UI_Sushe.characters[n].charid == i){
+                        this.scrollview.wantToRefreshItem(n);
+                    } 
+                    else{
+                        this.scrollview.wantToRefreshItem(n);
+                    }
+                  }
                   this.scrollview.wantToRefreshItem(e);
                 }
               } else {
@@ -3677,6 +3643,7 @@ setTimeout(
         })(t.UIBase);
         t.UI_Sushe_Select = e;
       })(uiscript || (uiscript = {}));
+      
 
       //屏蔽立直道具变更的网络请求
       !(function(t) {
