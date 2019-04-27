@@ -35,6 +35,9 @@
 如需更换初始人物和道具等，修改文件开头`setcharacter`,`setitemlizhibang`等值即可。
 
 对应表
+
+|id|道具|
+|--|--|
 |id:305001| name_chs:"咸鱼立直棒"|
 |id: 305002| name_chs: "大葱立直棒"|
 |id: 305003| name_chs: "狗骨头立直棒"
@@ -50,14 +53,14 @@
 |id: 305009| name_chs: "樱花和牌"|
 |id: 305023| name_chs: "黑炎和牌"|
 |id: 305029| name_chs: "烟花和牌"|
-|id: 305010, name_chs: "苍火立直",
-|id: 305021, name_chs: "碎冰立直",
-|id: 305022, name_chs: "火焰立直",
-|id: 305011, name_chs: "橘猫爪",
-|id: 305030, name_chs: "夜月猫爪",
-|id: 305031, name_chs: "蓝猫爪",
-|id: 305025, name_chs: "《真剑胜负》",
-|id: 305026, name_chs: "《激斗》",
+|id: 305010| name_chs: "苍火立直"|
+|id: 305021| name_chs: "碎冰立直"|
+|id: 305022| name_chs: "火焰立直"|
+|id: 305011| name_chs: "橘猫爪"|
+|id: 305030| name_chs: "夜月猫爪"|
+|id: 305031| name_chs: "蓝猫爪"|
+|id: 305025| name_chs: "《真剑胜负》"|
+|id: 305026| name_chs: "《激斗》"|
 
 
 ##### 本修改程序遵循 WTFPL 协议
