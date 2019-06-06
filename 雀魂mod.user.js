@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         雀魂mod
 // @namespace    http://tampermonkey.net/
-// @version      0.0.6
+// @version      0.0.7
 // @description  雀魂mod,解锁了全人物道具等。。。
 // @author       You
 // @match        https://*.union-game.com/0/
@@ -1221,19 +1221,17 @@ setTimeout(
                 (this.rank = new t.UI_Level(e.getChildByName("rank"))),
                 (this.money = new t.UI_Money(
                   e,
-                  Laya.Handler.create(o.Inst, o.Inst.Hide, null, !1),
+                  Laya.Handler.create(h.Inst, h.Inst.Hide, null, !1),
                   Laya.Handler.create(
                     this,
                     function() {
-                      return o.Inst.locking;
+                      return h.Inst.locking;
                     },
                     null,
                     !1
                   )
                 )),
-                (this.title = new t.UI_PlayerTitle(
-                  e.getChildByName("img_title")
-                )),
+                (this.title = new t.UI_PlayerTitle(e.getChildByName("img_title"))),
                 (this.btn_playerinfo = e.getChildByName("btn_playerinfo")),
                 (this.btn_playerinfo.clickHandler = Laya.Handler.create(
                   this,
@@ -1244,36 +1242,29 @@ setTimeout(
                   null,
                   !1
                 )),
-                (e.getChildByName(
-                  "btn_activity"
-                ).clickHandler = Laya.Handler.create(
+                (e.getChildByName("btn_activity").clickHandler = Laya.Handler.create(
                   this,
                   function() {
-                    o.Inst.locking ||
+                    h.Inst.locking ||
                       (t.UI_Activity.Inst.show(),
                       GameMgr.Inst.BehavioralStatistics(18));
                   },
                   null,
                   !1
                 )),
-                (e.getChildByName(
-                  "btn_rank"
-                ).clickHandler = Laya.Handler.create(
+                (e.getChildByName("btn_rank").clickHandler = Laya.Handler.create(
                   this,
                   function() {
-                    o.Inst.locking ||
-                      (t.UI_Rank.Inst.show(),
-                      GameMgr.Inst.BehavioralStatistics(18));
+                    h.Inst.locking ||
+                      (t.UI_Rank.Inst.show(), GameMgr.Inst.BehavioralStatistics(18));
                   },
                   null,
                   !1
                 )),
-                (e.getChildByName(
-                  "btn_info"
-                ).clickHandler = Laya.Handler.create(
+                (e.getChildByName("btn_info").clickHandler = Laya.Handler.create(
                   this,
                   function() {
-                    o.Inst.locking || t.UI_Info.Inst.show();
+                    h.Inst.locking || t.UI_Info.Inst.show();
                   },
                   null,
                   !1
@@ -1281,17 +1272,15 @@ setTimeout(
                 (e.getChildByName("btn_set").clickHandler = Laya.Handler.create(
                   this,
                   function() {
-                    o.Inst.locking || t.UI_Config.Inst.show();
+                    h.Inst.locking || t.UI_Config.Inst.show();
                   },
                   null,
                   !1
                 )),
-                (e.getChildByName(
-                  "btn_help"
-                ).clickHandler = Laya.Handler.create(
+                (e.getChildByName("btn_help").clickHandler = Laya.Handler.create(
                   this,
                   function() {
-                    o.Inst.locking || t.UI_Rules.Inst.show();
+                    h.Inst.locking || t.UI_Rules.Inst.show();
                   },
                   null,
                   !1
@@ -1301,18 +1290,18 @@ setTimeout(
                 ).clickHandler = Laya.Handler.create(
                   this,
                   function() {
-                    o.Inst.locking ||
+                    h.Inst.locking ||
                       (t.UI_PiPeiYuYue.Inst.enable
                         ? t.UI_Popout.PopOutNoTitle(
                             game.Tools.strOfLocalization(204),
                             null
                           )
-                        : o.Inst.Hide(
+                        : h.Inst.Hide(
                             Laya.Handler.create(i, function() {
                               t.UI_XinShouYinDao.Inst.show(
                                 0,
                                 Laya.Handler.create(i, function() {
-                                  o.Inst.enable = !0;
+                                  h.Inst.enable = !0;
                                 })
                               );
                             })
@@ -1338,8 +1327,7 @@ setTimeout(
                   t.UI_Mail.haveRedPoint || t.UI_Activity.haveRedPoint),
                   (this.me
                     .getChildByName("btn_info")
-                    .getChildByName("redpoint").visible =
-                    t.UI_Info.haveRedPoint);
+                    .getChildByName("redpoint").visible = t.UI_Info.haveRedPoint);
               }),
               e
             );
@@ -1353,7 +1341,7 @@ setTimeout(
                 (this.btn_yibanchang.clickHandler = Laya.Handler.create(
                   this,
                   function() {
-                    o.Inst.setPage(1), GameMgr.Inst.BehavioralStatistics(1);
+                    h.Inst.setPage(1), GameMgr.Inst.BehavioralStatistics(1);
                   },
                   null,
                   !1
@@ -1361,7 +1349,7 @@ setTimeout(
                 (this.btn_yourenfang.clickHandler = Laya.Handler.create(
                   this,
                   function() {
-                    o.Inst.setPage(2), GameMgr.Inst.BehavioralStatistics(2);
+                    h.Inst.setPage(2), GameMgr.Inst.BehavioralStatistics(2);
                   },
                   null,
                   !1
@@ -1369,11 +1357,12 @@ setTimeout(
                 (this.btn_dajiangsai.clickHandler = Laya.Handler.create(
                   this,
                   function() {
-                    "chs" == GameMgr.client_language
-                      ? (GameMgr.Inst.BehavioralStatistics(3),
-                        o.Inst.setPage(3))
-                      : t.UIMgr.Inst.ShowErrorInfo(
-                          game.Tools.strOfLocalization(2749)
+                    GameMgr.Inst.BehavioralStatistics(3),
+                      h.Inst.setPage(3),
+                      t.UI_Activity.activity_is_running(1011) &&
+                        Laya.LocalStorage.setItem(
+                          "art0_1011_" + GameMgr.Inst.account_id,
+                          Date.now().toString()
                         );
                   },
                   null,
@@ -1381,24 +1370,24 @@ setTimeout(
                 ));
             }
             return (
-              (e.prototype.onEnable = function(t) {
-                var e = this;
+              (e.prototype.onEnable = function(e) {
+                var i = this;
                 (this.btn_yibanchang.visible = !1),
                   (this.btn_dajiangsai.visible = !1),
                   (this.btn_yourenfang.visible = !1),
                   (this.btn_yibanchang.alpha = 1),
                   (this.btn_dajiangsai.alpha = 1),
                   (this.btn_yourenfang.alpha = 1),
-                  Laya.timer.once(t, this, function() {
+                  Laya.timer.once(e, this, function() {
                     view.AudioMgr.PlayAudio(104),
-                      (e.btn_yibanchang.x = 700),
-                      (e.btn_yibanchang.y = 405),
-                      (e.btn_yibanchang.scaleX = 0.2),
-                      (e.btn_yibanchang.scaleY = 0.2),
-                      (e.btn_yibanchang.visible = !0),
-                      (e.btn_yibanchang.alpha = 0),
+                      (i.btn_yibanchang.x = 700),
+                      (i.btn_yibanchang.y = 405),
+                      (i.btn_yibanchang.scaleX = 0.2),
+                      (i.btn_yibanchang.scaleY = 0.2),
+                      (i.btn_yibanchang.visible = !0),
+                      (i.btn_yibanchang.alpha = 0),
                       Laya.Tween.to(
-                        e.btn_yibanchang,
+                        i.btn_yibanchang,
                         {
                           x: 1183,
                           y: 368,
@@ -1412,16 +1401,16 @@ setTimeout(
                         }
                       );
                   }),
-                  Laya.timer.once(t + 100, this, function() {
+                  Laya.timer.once(e + 100, this, function() {
                     view.AudioMgr.PlayAudio(104),
-                      (e.btn_dajiangsai.x = 700),
-                      (e.btn_dajiangsai.y = 530),
-                      (e.btn_dajiangsai.scaleX = 0.2),
-                      (e.btn_dajiangsai.scaleY = 0.2),
-                      (e.btn_dajiangsai.visible = !0),
-                      (e.btn_dajiangsai.alpha = 0),
+                      (i.btn_dajiangsai.x = 700),
+                      (i.btn_dajiangsai.y = 530),
+                      (i.btn_dajiangsai.scaleX = 0.2),
+                      (i.btn_dajiangsai.scaleY = 0.2),
+                      (i.btn_dajiangsai.visible = !0),
+                      (i.btn_dajiangsai.alpha = 0),
                       Laya.Tween.to(
-                        e.btn_dajiangsai,
+                        i.btn_dajiangsai,
                         {
                           x: 1110,
                           y: 547,
@@ -1435,16 +1424,16 @@ setTimeout(
                         }
                       );
                   }),
-                  Laya.timer.once(t + 200, this, function() {
+                  Laya.timer.once(e + 200, this, function() {
                     view.AudioMgr.PlayAudio(104),
-                      (e.btn_yourenfang.x = 700),
-                      (e.btn_yourenfang.y = 634),
-                      (e.btn_yourenfang.scaleX = 0.2),
-                      (e.btn_yourenfang.scaleY = 0.2),
-                      (e.btn_yourenfang.visible = !0),
-                      (e.btn_yourenfang.alpha = 0),
+                      (i.btn_yourenfang.x = 700),
+                      (i.btn_yourenfang.y = 634),
+                      (i.btn_yourenfang.scaleX = 0.2),
+                      (i.btn_yourenfang.scaleY = 0.2),
+                      (i.btn_yourenfang.visible = !0),
+                      (i.btn_yourenfang.alpha = 0),
                       Laya.Tween.to(
-                        e.btn_yourenfang,
+                        i.btn_yourenfang,
                         {
                           x: 1123,
                           y: 736,
@@ -1457,7 +1446,16 @@ setTimeout(
                           return Laya.Ease.backOut(t, e, i, n, 1);
                         }
                       );
-                  }),
+                  });
+                var n = !1;
+                if (t.UI_Activity.activity_is_running(1011)) {
+                  var a = Laya.LocalStorage.getItem(
+                      "art0_1011_" + GameMgr.Inst.account_id
+                    ),
+                    r = 0;
+                  a && "" != a && (r = parseInt(a)), (n = Date.now() > r + 864e6);
+                }
+                (this.btn_dajiangsai.getChildByName("redpoint").visible = n),
                   (this.me.visible = !0);
               }),
               (e.prototype.onDisable = function(e) {
@@ -1509,43 +1507,61 @@ setTimeout(
             );
           })(),
           n = (function() {
+            function t(t) {
+              var e = this;
+              (this.me = t),
+                (this.me.visible = !1),
+                (this.btn_back = t.getChildByName("btn_back")),
+                (this.btn_back.clickHandler = new Laya.Handler(this, function() {
+                  e.func_back && e.func_back.run();
+                })),
+                (this.title = t.getChildByName("title"));
+            }
+            return (
+              (t.prototype.show = function(t, e) {
+                (this.title.text = t),
+                  game.Tools.labelLocalizationPosition(
+                    this.title,
+                    345,
+                    this.title.width,
+                    !0
+                  ),
+                  (this.func_back = e),
+                  this.me.visible ||
+                    ((this.me.visible = !0), h.Inst.me.page_title_in.play(0, !1)),
+                  Laya.timer.clearAll(this);
+              }),
+              (t.prototype.close = function() {
+                var t = this;
+                this.me.visible &&
+                  (h.Inst.me.page_title_out.play(0, !1),
+                  Laya.timer.once(200, this, function() {
+                    t.me.visible = !1;
+                  }));
+              }),
+              t
+            );
+          })(),
+          a = (function() {
             function e(e) {
               var i = this;
               (this.locking = !1),
-                (this.current_choose_room = -1),
-                (this.list_room = []),
-                (this.list_mode = []),
-                (this.in0 = !0),
-                (this._last_fetch_time = 0),
-                (this._last_fetch_success = !1),
                 (this.me = e),
-                (this.btn_back = e
-                  .getChildByName("container_title")
-                  .getChildByName("btn_back")),
-                (this.btn_back.clickHandler = Laya.Handler.create(
-                  this,
-                  function() {
-                    i.locking || (i.in0 ? o.Inst.setPage(0) : i.toShow0());
-                  },
-                  null,
-                  !1
-                )),
+                (this.me.visible = !1),
                 (this.p0 = e.getChildByName("p0")),
                 (this.p0.getChildByName("content").vScrollBar.visible = !1),
                 (this.content0 = this.p0.getChildByName("content"));
               for (
                 var n = GameMgr.Inst.account_data,
                   a = function(e) {
-                    var a = r.p0
-                        .getChildByName("content")
-                        .getChildByName("btn" + e),
+                    var a = r.p0.getChildByName("content").getChildByName("btn" + e),
                       s = a.getChildByName("container"),
                       o = s.getChildByName("btn"),
                       l = a.getChildByName("stop"),
-                      h = 0;
-                    h = e < 4 ? 1 + 3 * e : 15;
-                    var c = cfg.desktop.matchmode.find(h);
-                    c.is_open
+                      c = 0;
+                    c = e < 4 ? 1 + 3 * e : 15;
+                    var u = cfg.desktop.matchmode.find(c);
+                    u.is_open
                       ? ((o.mouseEnabled = !0),
                         (s.filters = []),
                         (l.visible = !1),
@@ -1553,35 +1569,33 @@ setTimeout(
                           r,
                           function() {
                             if (!i.locking) {
-                              var a = !0,
-                                r = "";
-                              a &&
-                                !c.is_open &&
-                                ((a = !1),
-                                (r = game.Tools.strOfLocalization(1306))),
-                                a &&
-                                  c.glimit_floor &&
-                                  n.gold < c.glimit_floor &&
-                                  ((a = !1),
-                                  (r = game.Tools.strOfLocalization(101))),
-                                a &&
-                                  -1 !== c.glimit_ceil &&
-                                  n.gold > c.glimit_ceil &&
-                                  ((a = !1),
-                                  (r = game.Tools.strOfLocalization(102))),
-                                a &&
-                                  c.level_limit &&
-                                  n.level.id < c.level_limit &&
-                                  ((a = !1),
-                                  (r = game.Tools.strOfLocalization(103))),
-                                a &&
-                                  c.level_limit_ceil &&
-                                  n.level.id > c.level_limit_ceil &&
-                                  ((a = !1),
-                                  (r = game.Tools.strOfLocalization(103))),
-                                a
-                                  ? i.toShow1(e)
-                                  : t.UIMgr.Inst.ShowErrorInfo(r);
+                              var e = !0,
+                                a = "";
+                              e &&
+                                !u.is_open &&
+                                ((e = !1), (a = game.Tools.strOfLocalization(1306))),
+                                e &&
+                                  u.glimit_floor &&
+                                  n.gold < u.glimit_floor &&
+                                  ((e = !1), (a = game.Tools.strOfLocalization(101))),
+                                e &&
+                                  -1 !== u.glimit_ceil &&
+                                  n.gold > u.glimit_ceil &&
+                                  ((e = !1), (a = game.Tools.strOfLocalization(102))),
+                                e &&
+                                  u.level_limit &&
+                                  n.level.id < u.level_limit &&
+                                  ((e = !1), (a = game.Tools.strOfLocalization(103))),
+                                e &&
+                                  u.level_limit_ceil &&
+                                  n.level.id > u.level_limit_ceil &&
+                                  ((e = !1), (a = game.Tools.strOfLocalization(103))),
+                                e
+                                  ? (i.close(),
+                                    Laya.timer.once(100, i, function() {
+                                      h.Inst.page_east_north.show(u.room);
+                                    }))
+                                  : t.UIMgr.Inst.ShowErrorInfo(a);
                             }
                           },
                           null,
@@ -1610,16 +1624,320 @@ setTimeout(
                 s++
               )
                 a(s);
+            }
+            return (
+              (e.prototype.show = function() {
+                var t = this;
+                (this.content0.vScrollBar.value = 0),
+                  view.AudioMgr.PlayAudio(102),
+                  (this.me.visible = !0),
+                  (this.locking = !0),
+                  h.Inst.page_title.show(
+                    game.Tools.strOfLocalization(2079),
+                    Laya.Handler.create(
+                      this,
+                      function() {
+                        t.locking || h.Inst.setPage(0);
+                      },
+                      null,
+                      !1
+                    )
+                  ),
+                  (this.p0.alpha = 1),
+                  (this.p0.visible = !1);
+                for (var e = 0; e < 5; e++)
+                  this.p0
+                    .getChildByName("content")
+                    .getChildByName("btn" + e).alpha = 1;
+                Laya.timer.once(100, this, function() {
+                  (t.p0.visible = !0), h.Inst.me.rank_in.play(0, !1);
+                }),
+                  Laya.timer.once(300, this, function() {
+                    t.locking = !1;
+                  });
+              }),
+              (e.prototype.close = function() {
+                var t = this;
+                this.me.visible &&
+                  ((this.locking = !0),
+                  h.Inst.me.rank_out.play(0, !1),
+                  Laya.timer.once(200, this, function() {
+                    (t.me.visible = !1), (t.locking = !1), Laya.timer.clearAll(t);
+                  }));
+              }),
+              e
+            );
+          })(),
+          r = (function() {
+            function e(e) {
+              var i = this;
+              (this.locking = !1),
+                (this.me = e),
+                (this.me.visible = !1),
+                (this.btn_create_room = e
+                  .getChildByName("content")
+                  .getChildByName("btn0")
+                  .getChildByName("btn")),
+                (e
+                  .getChildByName("content")
+                  .getChildByName("btn0")
+                  .getChildByName("btn_tips").clickHandler = Laya.Handler.create(
+                  this,
+                  function() {
+                    t.UI_InfoLite.Inst.show(game.Tools.strOfLocalization(8)),
+                      GameMgr.Inst.BehavioralStatistics(10);
+                  },
+                  null,
+                  !1
+                )),
+                (this.btn_add_room = e
+                  .getChildByName("content")
+                  .getChildByName("btn1")
+                  .getChildByName("btn")),
+                (e
+                  .getChildByName("content")
+                  .getChildByName("btn1")
+                  .getChildByName("btn_tips").clickHandler = Laya.Handler.create(
+                  this,
+                  function() {
+                    t.UI_InfoLite.Inst.show(game.Tools.strOfLocalization(9));
+                  },
+                  null,
+                  !1
+                )),
+                (this.btn_create_room.clickHandler = Laya.Handler.create(
+                  this,
+                  function() {
+                    h.Inst.locking ||
+                      (t.UI_PiPeiYuYue.Inst.enable
+                        ? t.UI_Popout.PopOutNoTitle(
+                            game.Tools.strOfLocalization(204),
+                            null
+                          )
+                        : h.Inst.Hide(
+                            Laya.Handler.create(i, function() {
+                              t.UI_Create_Room.Show();
+                            })
+                          ));
+                  },
+                  null,
+                  !1
+                )),
+                (this.btn_add_room.clickHandler = Laya.Handler.create(
+                  this,
+                  function() {
+                    t.UI_PiPeiYuYue.Inst.enable
+                      ? t.UI_Popout.PopOutNoTitle(
+                          game.Tools.strOfLocalization(204),
+                          null
+                        )
+                      : (t.UI_NumberInput.Inst.show(
+                          game.Tools.strOfLocalization(2080),
+                          Laya.Handler.create(i, function(e) {
+                            app.NetAgent.sendReq2Lobby(
+                              "Lobby",
+                              "joinRoom",
+                              {
+                                room_id: e
+                              },
+                              function(e, i) {
+                                e || i.error
+                                  ? t.UIMgr.Inst.showNetReqError("joinRoom", e, i)
+                                  : ((h.Inst.enable = !1),
+                                    t.UI_WaitingRoom.Inst.updateData(i.room),
+                                    t.UIMgr.Inst.ShowWaitingRoom());
+                              }
+                            );
+                          }),
+                          null
+                        ),
+                        GameMgr.Inst.BehavioralStatistics(11));
+                  },
+                  null,
+                  !1
+                )),
+                "chs" != GameMgr.client_language &&
+                  ((e
+                    .getChildByName("content")
+                    .getChildByName("btn0")
+                    .getChildByName("del").visible = !1),
+                  (e
+                    .getChildByName("content")
+                    .getChildByName("btn1")
+                    .getChildByName("del").visible = !1));
+            }
+            return (
+              (e.prototype.show = function() {
+                var t = this;
+                h.Inst.page_title.show(
+                  game.Tools.strOfLocalization(2023),
+                  Laya.Handler.create(
+                    this,
+                    function() {
+                      t.locking || h.Inst.setPage(0);
+                    },
+                    null,
+                    !1
+                  )
+                ),
+                  (this.btn_add_room.alpha = 1),
+                  (this.btn_create_room.alpha = 1),
+                  (this.btn_create_room.visible = !0),
+                  (this.btn_add_room.visible = !0),
+                  (this.me.visible = !0),
+                  view.AudioMgr.PlayAudio(102),
+                  h.Inst.me.friend_in.play(0, !1),
+                  Laya.timer.once(150, this, function() {
+                    t.locking = !1;
+                  });
+              }),
+              (e.prototype.close = function() {
+                var t = this;
+                this.me.visible &&
+                  ((this.locking = !0),
+                  h.Inst.me.friend_out.play(0, !1),
+                  Laya.timer.once(200, this, function() {
+                    (t.locking = !1), (t.me.visible = !1);
+                  }));
+              }),
+              e
+            );
+          })(),
+          s = (function() {
+            function e(e) {
+              var i = this;
+              (this.btns = []),
+                (this.me = e),
+                (e.visible = !1),
+                (this.content = e.getChildByName("content"));
+              for (
+                var n = function(e) {
+                    var n = a.content.getChildByName("btn" + e);
+                    a.btns.push(n),
+                      (n
+                        .getChildByName("container")
+                        .getChildByName("btn").clickHandler = Laya.Handler.create(
+                        a,
+                        function() {
+                          if (!h.Inst.locking && !i.locking)
+                            if (0 == e) {
+                              if (t.UI_PiPeiYuYue.Inst.enable)
+                                return void t.UI_Popout.PopOutNoTitle(
+                                  game.Tools.strOfLocalization(204),
+                                  null
+                                );
+                              h.Inst.Hide(
+                                Laya.Handler.create(i, function() {
+                                  t.UI_Match_Lobby.Inst.show();
+                                })
+                              );
+                            } else
+                              1 == e &&
+                                (i.close(),
+                                h.Inst.page_east_north.show(5),
+                                Laya.LocalStorage.setItem(
+                                  "art1_1011_" + GameMgr.Inst.account_id,
+                                  Date.now().toString()
+                                ));
+                        },
+                        null,
+                        !1
+                      )),
+                      (n
+                        .getChildByName("container")
+                        .getChildByName(
+                          "btn_tips"
+                        ).clickHandler = Laya.Handler.create(
+                        a,
+                        function() {
+                          h.Inst.locking ||
+                            i.locking ||
+                            (0 == e
+                              ? t.UI_InfoLite.Inst.show(
+                                  game.Tools.strOfLocalization(56)
+                                )
+                              : 1 == e &&
+                                t.UI_InfoLite.Inst.show(
+                                  game.Tools.strOfLocalization(2775)
+                                ));
+                        },
+                        null,
+                        !1
+                      ));
+                  },
+                  a = this,
+                  r = 0;
+                r < 2;
+                r++
+              )
+                n(r);
+            }
+            return (
+              (e.prototype.show = function() {
+                var e = this;
+                h.Inst.page_title.show(
+                  game.Tools.strOfLocalization(2025),
+                  Laya.Handler.create(
+                    this,
+                    function() {
+                      e.locking || h.Inst.setPage(0);
+                    },
+                    null,
+                    !1
+                  )
+                );
+                for (var i = 0; i < this.btns.length; i++) this.btns[i].alpha = 1;
+                var n = !1;
+                if (t.UI_Activity.activity_is_running(1011)) {
+                  this.btns[1].visible = !0;
+                  var a = Laya.LocalStorage.getItem(
+                      "art1_1011_" + GameMgr.Inst.account_id
+                    ),
+                    r = 0;
+                  a && "" != a && (r = parseInt(a)),
+                    (n = Date.now() > r + 864e6),
+                    (this.btns[1].getChildByName("redpoint").visible = n);
+                } else this.btns[1].visible = !1;
+                (this.locking = !0),
+                  view.AudioMgr.PlayAudio(102),
+                  (this.me.visible = !0),
+                  h.Inst.me.match_in.play(0, !1),
+                  Laya.timer.once(150, this, function() {
+                    e.locking = !1;
+                  });
+              }),
+              (e.prototype.close = function() {
+                var t = this;
+                this.me.visible &&
+                  (h.Inst.me.match_out.play(0, !1),
+                  Laya.timer.once(200, this, function() {
+                    t.me.visible = !1;
+                  }));
+              }),
+              e
+            );
+          })(),
+          o = (function() {
+            function e(e) {
+              var i = this;
+              (this.locking = !1),
+                (this.room_type = -1),
+                (this.list_mode = []),
+                (this._last_fetch_time = 0),
+                (this._last_fetch_success = !1),
+                (this.me = e),
+                (this.me.visible = !1);
+              GameMgr.Inst.account_data;
               (this.p1 = e.getChildByName("p1")),
                 (this.p1.getChildByName("content").vScrollBar.visible = !1),
                 (this.content1 = this.p1.getChildByName("content"));
               for (
-                var l = function(e) {
-                    (h.p1
+                var n = function(e) {
+                    (a.p1
                       .getChildByName("content")
                       .getChildByName("btn" + e)
                       .getChildByName("btn").clickHandler = Laya.Handler.create(
-                      h,
+                      a,
                       function() {
                         if (!i.locking) {
                           var n = i.p1
@@ -1627,9 +1945,7 @@ setTimeout(
                             .getChildByName("btn" + e)
                             .getChildByName("flag_yuyue");
                           t.UI_PiPeiYuYue.Inst.matchYuYued(i.list_mode[e].id)
-                            ? t.UI_PiPeiYuYue.Inst.cancelPiPei(
-                                i.list_mode[e].id
-                              )
+                            ? t.UI_PiPeiYuYue.Inst.cancelPiPei(i.list_mode[e].id)
                             : (t.UI_PiPeiYuYue.Inst.addMatch(i.list_mode[e].id),
                               (n.visible = !0)),
                             GameMgr.Inst.BehavioralStatistics(8 + e);
@@ -1638,13 +1954,13 @@ setTimeout(
                       null,
                       !1
                     )),
-                      (h.p1
+                      (a.p1
                         .getChildByName("content")
                         .getChildByName("btn" + e)
                         .getChildByName(
                           "btn_tips"
                         ).clickHandler = Laya.Handler.create(
-                        h,
+                        a,
                         function() {
                           i.locking ||
                             t.UI_InfoLite.Inst.show(
@@ -1655,24 +1971,20 @@ setTimeout(
                         !1
                       ));
                   },
-                  h = this,
-                  s = 0;
-                s < 2;
-                s++
+                  a = this,
+                  r = 0;
+                r < 2;
+                r++
               )
-                l(s);
-              this.onShow0(),
-                (this.title = e
-                  .getChildByName("container_title")
-                  .getChildAt(0)),
-                t.UI_PiPeiYuYue.Inst.me.on("cancelPiPei", this, function(t) {
-                  for (var e = 0; e < 2; e++)
-                    i.list_mode[e].id == t &&
-                      (i.p1
-                        .getChildByName("content")
-                        .getChildByName("btn" + e)
-                        .getChildByName("flag_yuyue").visible = !1);
-                }),
+                n(r);
+              t.UI_PiPeiYuYue.Inst.me.on("cancelPiPei", this, function(t) {
+                for (var e = 0; e < 2; e++)
+                  i.list_mode[e].id == t &&
+                    (i.p1
+                      .getChildByName("content")
+                      .getChildByName("btn" + e)
+                      .getChildByName("flag_yuyue").visible = !1);
+              }),
                 t.UI_PiPeiYuYue.Inst.me.on("pipeiover", this, function() {
                   for (var t = 0; t < 2; t++)
                     i.p1
@@ -1682,167 +1994,81 @@ setTimeout(
                 });
             }
             return (
-              (e.prototype.onEnable = function(t) {
-                var e = this;
-                (this.content0.vScrollBar.value = 0),
+              (e.prototype.show = function(e) {
+                var i = this;
+                Laya.timer.clearAll(this);
+                var n = "";
+                cfg.desktop.matchmode.forEach(function(t) {
+                  t.room == e && (n = t["room_name_" + GameMgr.client_language]);
+                }),
+                  h.Inst.page_title.show(
+                    n,
+                    Laya.Handler.create(
+                      this,
+                      function() {
+                        i.locking ||
+                          (i.close(),
+                          5 == e
+                            ? h.Inst.page_match.show()
+                            : h.Inst.page_rank.show());
+                      },
+                      null,
+                      !1
+                    )
+                  ),
+                  (this.room_type = e),
                   (this.content1.vScrollBar.value = 0),
                   view.AudioMgr.PlayAudio(102),
-                  Laya.timer.once(t, this, function() {
-                    (e.me.visible = !0),
-                      (e.p1.visible = !1),
-                      (e.locking = !0),
-                      (e.in0 = !0),
-                      (e.title.text = game.Tools.strOfLocalization(2079)),
-                      (e.p0.alpha = 1),
-                      (e.p1.alpha = 1),
-                      (e.title.alpha = 1),
-                      game.Tools.labelLocalizationPosition(
-                        e.title,
-                        345,
-                        e.title.width,
-                        !0
-                      ),
-                      o.Inst.me.YBin.play(0, !1),
-                      (e.p0.visible = !1),
-                      Laya.timer.once(100, e, function() {
-                        (e.p0.visible = !0), o.Inst.me.YB2in.play(0, !1);
-                      }),
-                      Laya.timer.once(300, e, function() {
-                        (e.locking = !1), e.reset();
-                      });
-                  });
-                for (var i = 0; i < 2; i++)
-                  this.p1
+                  (this.me.visible = !0),
+                  (this.locking = !0);
+                for (r = 0; r < 2; r++)
+                  (this.p1
                     .getChildByName("content")
-                    .getChildByName("btn" + i)
-                    .getChildByName("count").text = "--";
-                Laya.timer.loop(1e3, this, this._fetchPlayerCount);
-              }),
-              (e.prototype.reset = function() {
-                for (t = 0; t < 4; t++)
-                  this.p0
-                    .getChildByName("content")
-                    .getChildByName("btn" + t).alpha = 1;
-                for (var t = 0; t < 2; t++)
-                  this.p1
-                    .getChildByName("content")
-                    .getChildByName("btn" + t).alpha = 1;
-              }),
-              (e.prototype.onDisable = function(t) {
-                var e = this;
-                (this.locking = !0),
-                  Laya.timer.once(t, this, function() {
-                    o.Inst.me.YBout.play(0, !1),
-                      o.Inst.me.YB1out.play(0, !1),
-                      o.Inst.me.YB2out.play(0, !1);
+                    .getChildByName("btn" + r)
+                    .getChildByName("count").text = "--"),
+                    (this.p1
+                      .getChildByName("content")
+                      .getChildByName("btn" + r).alpha = 1);
+                h.Inst.me.east_north_in.play(0, !1),
+                  Laya.timer.once(150, this, function() {
+                    i.locking = !1;
                   }),
-                  Laya.timer.once(t + 200, this, function() {
-                    (e.me.visible = !1),
-                      (e.locking = !1),
-                      e.reset(),
-                      Laya.timer.clearAll(e);
-                  });
-              }),
-              (e.prototype.onShow0 = function() {
-                var t = [];
-                cfg.desktop.matchmode.forEach(function(e, i) {
-                  if (e.can_sumup) {
-                    for (var n = !1, a = 0; a < t.length; a++)
-                      if (t[a].room == e.room) {
-                        n = !0;
-                        break;
-                      }
-                    n ||
-                      t.push({
-                        room: e.room,
-                        title: e["room_name_" + GameMgr.client_language]
-                      });
-                  }
-                }),
-                  (this.list_room = t);
-              }),
-              (e.prototype.onShow1 = function() {
-                var e = this;
-                this.content1.vScrollBar.value = 0;
-                var i = [];
-                cfg.desktop.matchmode.forEach(function(t, n) {
+                  Laya.timer.loop(1e3, this, this._fetchPlayerCount),
+                  (this.content1.vScrollBar.value = 0);
+                var a = [];
+                cfg.desktop.matchmode.forEach(function(t, e) {
                   0 != t.mode &&
-                    e.current_choose_room == t.room &&
-                    i.push({
+                    i.room_type == t.room &&
+                    a.push({
                       mode: t.mode,
                       id: t.id
                     });
                 }),
-                  (this.list_mode = i),
+                  (this.list_mode = a),
                   (this._last_fetch_time = 0),
                   (this._last_fetch_success = !0),
                   this._fetchPlayerCount();
-                for (var n = 0; n < i.length; n++)
+                for (var r = 0; r < a.length; r++)
                   this.p1
                     .getChildByName("content")
-                    .getChildByName("btn" + n)
+                    .getChildByName("btn" + r)
                     .getChildByName(
                       "flag_yuyue"
-                    ).visible = t.UI_PiPeiYuYue.Inst.matchYuYued(i[n].id);
+                    ).visible = t.UI_PiPeiYuYue.Inst.matchYuYued(a[r].id);
               }),
-              (e.prototype.toShow0 = function() {
+              (e.prototype.close = function() {
                 var t = this;
-                (this.locking = !0),
-                  (this.title.text = game.Tools.strOfLocalization(2079)),
-                  (this.in0 = !0),
-                  game.Tools.labelLocalizationPosition(
-                    this.title,
-                    345,
-                    this.title.width,
-                    !0
-                  ),
-                  o.Inst.me.YB1out.play(0, !1),
-                  Laya.timer.once(100, this, function() {
-                    view.AudioMgr.PlayAudio(102),
-                      (t.p0.visible = !0),
-                      (t.p1.visible = !1),
-                      (t.p1.alpha = 1),
-                      (t.p0.alpha = 1),
-                      o.Inst.me.YB2in.play(0, !1),
-                      t.onShow0(),
-                      (t.locking = !1),
-                      Laya.timer.once(200, t, function() {
-                        t.reset();
-                      });
-                  });
-              }),
-              (e.prototype.toShow1 = function(t) {
-                var e = this;
-                (this.locking = !0),
-                  (this.current_choose_room = this.list_room[t].room),
-                  (this.title.text = this.list_room[t].title),
-                  game.Tools.labelLocalizationPosition(
-                    this.title,
-                    345,
-                    this.title.width,
-                    !0
-                  ),
-                  (this.in0 = !1),
-                  o.Inst.me.YB2out.play(0, !1),
-                  Laya.timer.once(100, this, function() {
-                    view.AudioMgr.PlayAudio(102),
-                      (e.p1.visible = !0),
-                      (e.p0.visible = !1),
-                      (e.p1.alpha = 1),
-                      (e.p0.alpha = 1),
-                      o.Inst.me.YB1in.play(0, !1),
-                      e.onShow1(),
-                      (e.locking = !1),
-                      Laya.timer.once(200, e, function() {
-                        e.reset();
-                      });
-                  });
+                this.me.visible &&
+                  ((this.locking = !0),
+                  h.Inst.me.east_north_out.play(0, !1),
+                  Laya.timer.once(200, this, function() {
+                    (t.me.visible = !1), (t.locking = !1), Laya.timer.clearAll(t);
+                  }));
               }),
               (e.prototype._fetchPlayerCount = function() {
                 var e = this;
                 if (
                   game.LobbyNetMgr.Inst.isOK &&
-                  !this.in0 &&
                   this._last_fetch_success &&
                   !(Laya.timer.currTimer < this._last_fetch_time + 7e3)
                 ) {
@@ -1858,11 +2084,7 @@ setTimeout(
                       },
                       function(i, n) {
                         if (i || n.error) {
-                          t.UIMgr.Inst.showNetReqError(
-                            "fetchCurrentMatchInfo",
-                            i,
-                            n
-                          );
+                          t.UIMgr.Inst.showNetReqError("fetchCurrentMatchInfo", i, n);
                           for (a = 0; a < 2; a++)
                             e.p1
                               .getChildByName("content")
@@ -1900,255 +2122,7 @@ setTimeout(
               e
             );
           })(),
-          a = (function() {
-            function e(e) {
-              var i = this;
-              (this.me = e),
-                (this.btn_back = e
-                  .getChildByName("title")
-                  .getChildByName("btn_back")),
-                (this.btn_back.clickHandler = Laya.Handler.create(
-                  this,
-                  function() {
-                    o.Inst.setPage(0);
-                  },
-                  null,
-                  !1
-                )),
-                (this.btn_create_room = e
-                  .getChildByName("content")
-                  .getChildByName("btn0")
-                  .getChildByName("btn")),
-                (e
-                  .getChildByName("content")
-                  .getChildByName("btn0")
-                  .getChildByName(
-                    "btn_tips"
-                  ).clickHandler = Laya.Handler.create(
-                  this,
-                  function() {
-                    t.UI_InfoLite.Inst.show(game.Tools.strOfLocalization(8)),
-                      GameMgr.Inst.BehavioralStatistics(10);
-                  },
-                  null,
-                  !1
-                )),
-                (this.btn_add_room = e
-                  .getChildByName("content")
-                  .getChildByName("btn1")
-                  .getChildByName("btn")),
-                (e
-                  .getChildByName("content")
-                  .getChildByName("btn1")
-                  .getChildByName(
-                    "btn_tips"
-                  ).clickHandler = Laya.Handler.create(
-                  this,
-                  function() {
-                    t.UI_InfoLite.Inst.show(game.Tools.strOfLocalization(9));
-                  },
-                  null,
-                  !1
-                )),
-                (this.btn_create_room.clickHandler = Laya.Handler.create(
-                  this,
-                  function() {
-                    o.Inst.locking ||
-                      (t.UI_PiPeiYuYue.Inst.enable
-                        ? t.UI_Popout.PopOutNoTitle(
-                            game.Tools.strOfLocalization(204),
-                            null
-                          )
-                        : o.Inst.Hide(
-                            Laya.Handler.create(i, function() {
-                              t.UI_Create_Room.Show();
-                            })
-                          ));
-                  },
-                  null,
-                  !1
-                )),
-                (this.btn_add_room.clickHandler = Laya.Handler.create(
-                  this,
-                  function() {
-                    t.UI_PiPeiYuYue.Inst.enable
-                      ? t.UI_Popout.PopOutNoTitle(
-                          game.Tools.strOfLocalization(204),
-                          null
-                        )
-                      : (t.UI_NumberInput.Inst.show(
-                          game.Tools.strOfLocalization(2080),
-                          Laya.Handler.create(i, function(e) {
-                            app.NetAgent.sendReq2Lobby(
-                              "Lobby",
-                              "joinRoom",
-                              {
-                                room_id: e
-                              },
-                              function(e, i) {
-                                e || i.error
-                                  ? t.UIMgr.Inst.showNetReqError(
-                                      "joinRoom",
-                                      e,
-                                      i
-                                    )
-                                  : ((o.Inst.enable = !1),
-                                    t.UI_WaitingRoom.Inst.updateData(i.room),
-                                    t.UIMgr.Inst.ShowWaitingRoom());
-                              }
-                            );
-                          }),
-                          null
-                        ),
-                        GameMgr.Inst.BehavioralStatistics(11));
-                  },
-                  null,
-                  !1
-                ));
-              var n = e.getChildByName("title").getChildAt(0);
-              game.Tools.labelLocalizationPosition(n, 345, n.width, !0),
-                "chs" != GameMgr.client_language &&
-                  ((e
-                    .getChildByName("content")
-                    .getChildByName("btn0")
-                    .getChildByName("del").visible = !1),
-                  (e
-                    .getChildByName("content")
-                    .getChildByName("btn1")
-                    .getChildByName("del").visible = !1));
-            }
-            return (
-              (e.prototype.onEnable = function(t) {
-                var e = this;
-                Laya.timer.once(t, this, function() {
-                  view.AudioMgr.PlayAudio(102),
-                    (e.me.visible = !0),
-                    o.Inst.me.YRin.play(0, !1),
-                    (e.btn_create_room.visible = !1),
-                    (e.btn_add_room.visible = !1),
-                    e.reset(),
-                    (e.btn_create_room.visible = !0),
-                    (e.btn_add_room.visible = !0),
-                    o.Inst.me.YR1in.play(0, !1);
-                });
-              }),
-              (e.prototype.reset = function() {
-                (this.btn_add_room.alpha = 1),
-                  (this.btn_create_room.alpha = 1),
-                  (this.me.getChildByName("title").alpha = 1);
-              }),
-              (e.prototype.onDisable = function(t) {
-                var e = this;
-                o.Inst.me.YRout.play(0, !1),
-                  o.Inst.me.YR1out.play(0, !1),
-                  Laya.timer.once(200, this, function() {
-                    e.me.visible = !1;
-                  });
-              }),
-              e
-            );
-          })(),
-          r = (function() {
-            function e(e) {
-              var i = this;
-              (this.btns = []),
-                (this.me = e),
-                (this.btn_back = e
-                  .getChildByName("title")
-                  .getChildByName("btn_back")),
-                (this.btn_back.clickHandler = Laya.Handler.create(
-                  this,
-                  function() {
-                    o.Inst.setPage(0);
-                  },
-                  null,
-                  !1
-                )),
-                (this.content = e.getChildByName("content"));
-              for (
-                var n = function(e) {
-                    var n = a.content.getChildByName("btn" + e);
-                    a.btns.push(n),
-                      (n
-                        .getChildByName("container")
-                        .getChildByName(
-                          "btn"
-                        ).clickHandler = Laya.Handler.create(
-                        a,
-                        function() {
-                          o.Inst.locking ||
-                            (t.UI_PiPeiYuYue.Inst.enable
-                              ? t.UI_Popout.PopOutNoTitle(
-                                  game.Tools.strOfLocalization(204),
-                                  null
-                                )
-                              : 0 == e &&
-                                ("chs" == GameMgr.client_language
-                                  ? o.Inst.Hide(
-                                      Laya.Handler.create(i, function() {
-                                        t.UI_Match_Lobby.Inst.show();
-                                      })
-                                    )
-                                  : t.UIMgr.Inst.ShowErrorInfo(
-                                      game.Tools.strOfLocalization(2749)
-                                    )));
-                        },
-                        null,
-                        !1
-                      )),
-                      (n
-                        .getChildByName("container")
-                        .getChildByName(
-                          "btn_tips"
-                        ).clickHandler = Laya.Handler.create(
-                        a,
-                        function() {
-                          o.Inst.locking ||
-                            t.UI_InfoLite.Inst.show(
-                              game.Tools.strOfLocalization(56)
-                            );
-                        },
-                        null,
-                        !1
-                      ));
-                  },
-                  a = this,
-                  r = 0;
-                r < 1;
-                r++
-              )
-                n(r);
-              var s = e.getChildByName("title").getChildAt(0);
-              game.Tools.labelLocalizationPosition(s, 345, s.width, !0);
-            }
-            return (
-              (e.prototype.onEnable = function(t) {
-                var e = this;
-                Laya.timer.once(t, this, function() {
-                  view.AudioMgr.PlayAudio(102),
-                    (e.me.visible = !0),
-                    e.reset(),
-                    o.Inst.me.BSin.play(0, !1),
-                    o.Inst.me.BS1in.play(0, !1);
-                });
-              }),
-              (e.prototype.reset = function() {
-                for (var t = 0; t < this.btns.length; t++)
-                  (this.btns[t].visible = !0), (this.btns[t].alpha = 1);
-                this.me.getChildByName("title").alpha = 1;
-              }),
-              (e.prototype.onDisable = function(t) {
-                var e = this;
-                o.Inst.me.BSout.play(0, !1),
-                  o.Inst.me.BS1out.play(0, !1),
-                  Laya.timer.once(200, this, function() {
-                    e.me.visible = !1;
-                  });
-              }),
-              e
-            );
-          })(),
-          s = (function() {
+          l = (function() {
             function e(e) {
               var i = this;
               this.me = e;
@@ -2157,45 +2131,45 @@ setTimeout(
                     e.getChildAt(n).clickHandler = Laya.Handler.create(
                       a,
                       function() {
-                        o.Inst.locking ||
+                        h.Inst.locking ||
                           (0 == n
-                            ? o.Inst.Hide(
+                            ? h.Inst.Hide(
                                 Laya.Handler.create(i, function() {
                                   t.UI_Sushe.Inst.show();
                                 })
                               )
                             : 5 == n
-                            ? o.Inst.Hide(
+                            ? h.Inst.Hide(
                                 Laya.Handler.create(i, function() {
                                   t.UI_Shop.Inst.show();
                                 })
                               )
                             : 3 == n
-                            ? o.Inst.Hide(
+                            ? h.Inst.Hide(
                                 Laya.Handler.create(i, function() {
                                   t.UI_PaiPu.Inst.show();
                                 })
                               )
                             : 1 == n
-                            ? o.Inst.Hide(
+                            ? h.Inst.Hide(
                                 Laya.Handler.create(i, function() {
                                   t.UI_Friend.Inst.show();
                                 })
                               )
                             : 2 == n
-                            ? o.Inst.Hide(
+                            ? h.Inst.Hide(
                                 Laya.Handler.create(i, function() {
                                   t.UI_Ob.Inst.show();
                                 })
                               )
                             : 4 == n
-                            ? o.Inst.Hide(
+                            ? h.Inst.Hide(
                                 Laya.Handler.create(i, function() {
                                   t.UI_Bag.Inst.show();
                                 })
                               )
                             : 6 == n &&
-                              o.Inst.Hide(
+                              h.Inst.Hide(
                                 Laya.Handler.create(i, function() {
                                   t.UI_Treasure.Inst.show();
                                 })
@@ -2221,16 +2195,18 @@ setTimeout(
               e
             );
           })(),
-          o = (function(o) {
-            function l() {
-              var t = o.call(this, new ui.lobby.lobbyUI()) || this;
+          h = (function(h) {
+            function c() {
+              var t = h.call(this, new ui.lobby.lobbyUI()) || this;
               return (
                 (t.top = null),
                 (t.page0 = null),
-                (t.page1 = null),
-                (t.page2 = null),
-                (t.page3 = null),
+                (t.page_rank = null),
+                (t.page_friend = null),
+                (t.page_match = null),
+                (t.page_east_north = null),
                 (t.btns = null),
+                (t.page_title = null),
                 (t.chat_id = 0),
                 (t.container_chat = null),
                 (t.chat_block = null),
@@ -2239,20 +2215,42 @@ setTimeout(
                 (t.locking = !1),
                 (t.sound_channel = null),
                 (t.firstIn = !0),
-                (l.Inst = t),
+                (c.Inst = t),
                 t
               );
             }
             return (
-              __extends(l, o),
-              (l.prototype.onCreate = function() {
-                var o = this;
+              __extends(c, h),
+              (c.prototype.onCreate = function() {
+                var h = this;
                 (this.top = new e(this.me.getChildByName("container_top"))),
                   (this.page0 = new i(this.me.getChildByName("page0"))),
-                  (this.page1 = new n(this.me.getChildByName("page1"))),
-                  (this.page2 = new a(this.me.getChildByName("page2"))),
-                  (this.page3 = new r(this.me.getChildByName("page3"))),
-                  (this.btns = new s(this.me.getChildByName("container_btns"))),
+                  (this.page_rank = new a(
+                    this.me
+                      .getChildByName("container_pages")
+                      .getChildByName("page_rank")
+                  )),
+                  (this.page_friend = new r(
+                    this.me
+                      .getChildByName("container_pages")
+                      .getChildByName("page_friend")
+                  )),
+                  (this.page_match = new s(
+                    this.me
+                      .getChildByName("container_pages")
+                      .getChildByName("page_match")
+                  )),
+                  (this.page_east_north = new o(
+                    this.me
+                      .getChildByName("container_pages")
+                      .getChildByName("page_east_north")
+                  )),
+                  (this.page_title = new n(
+                    this.me
+                      .getChildByName("container_pages")
+                      .getChildByName("container_title")
+                  )),
+                  (this.btns = new l(this.me.getChildByName("container_btns"))),
                   (this.character_skin = new t.UI_Character_Skin(
                     this.me.getChildByName("illust").getChildByName("illust")
                   )),
@@ -2260,22 +2258,20 @@ setTimeout(
                     .getChildByName("illust")
                     .getChildByName("chat")),
                   (this.container_chat.visible = !1),
-                  (this.chat_block = new t.UI_Character_Chat(
-                    this.container_chat
-                  )),
+                  (this.chat_block = new t.UI_Character_Chat(this.container_chat)),
                   (this.me
                     .getChildByName("illust")
                     .getChildByName("btn").clickHandler = Laya.Handler.create(
                     this,
                     function() {
-                      l.login_helloed &&
-                        (o.sound_channel ? o.stopsay() : o.say("lobby_normal"));
+                      c.login_helloed &&
+                        (h.sound_channel ? h.stopsay() : h.say("lobby_normal"));
                     },
                     null,
                     !1
                   ));
               }),
-              (l.prototype.onEnable = function() {
+              (c.prototype.onEnable = function() {
                 this.showEnter(),
                   t.UI_TanfangRoot.Inst.beginload(),
                   (t.UI_Invite.Inst.enable = !0),
@@ -2375,21 +2371,25 @@ setTimeout(
                     1
                   );
               }),
-              (l.prototype.onDisable = function() {
+              (c.prototype.onDisable = function() {
                 this.page0.onDisable(0),
-                  this.page1.onDisable(0),
-                  this.page2.onDisable(0),
-                  this.page3.onDisable(0),
+                  this.page_rank.close(),
+                  this.page_friend.close(),
+                  this.page_match.close(),
+                  this.page_title.close(),
+                  this.page_east_north.close(),
                   this.character_skin.clear(),
                   this.stopsay();
               }),
-              (l.prototype.showEnter = function() {
+              (c.prototype.showEnter = function() {
                 var t = this;
                 this.refreshInfo(),
                   (this.page0.me.visible = !0),
-                  (this.page1.me.visible = !1),
-                  (this.page2.me.visible = !1),
-                  (this.page3.me.visible = !1),
+                  (this.page_rank.me.visible = !1),
+                  (this.page_friend.me.visible = !1),
+                  (this.page_match.me.visible = !1),
+                  (this.page_title.me.visible = !1),
+                  (this.page_east_north.me.visible = !1),
                   (this.nowpage = 0),
                   (this.locking = !0),
                   this.me.in.play(0, !1),
@@ -2399,58 +2399,47 @@ setTimeout(
                     t.locking = !1;
                   }),
                   game.Scene_Lobby.Inst.change_bg("yard", !1),
-                  l.login_helloed ||
+                  c.login_helloed ||
                     Laya.timer.once(500, this, function() {
-                      (l.login_helloed = !0), t.say("lobby_playerlogin");
+                      (c.login_helloed = !0), t.say("lobby_playerlogin");
                     });
               }),
-              (l.prototype.refreshInfo = function() {
+              (c.prototype.refreshInfo = function() {
                 GameMgr.Inst.account_data;
                 this.top.refresh(),
-                  //打完之后刷新用户数据，重新赋值为寮舍选择人物 -----fxxk
-                  (GameMgr.Inst.account_data.avatar_id =
-                    GameMgr.Inst.account_data.my_character.skin),
-                  //end
+                //打完之后刷新用户数据，重新赋值为寮舍选择人物 -----fxxk
+                (GameMgr.Inst.account_data.avatar_id =
+                  GameMgr.Inst.account_data.my_character.skin),
+                //end
                   this.character_skin.setSkin(
                     GameMgr.Inst.account_data.avatar_id,
                     "full"
                   ),
                   (this.character_skin.me.visible = !0);
               }),
-              (l.prototype.getContainer = function(t) {
-                switch (t) {
-                  case 0:
-                    return this.page0.me;
-                  case 1:
-                    return this.page1.me;
-                  case 2:
-                    return this.page2.me;
-                }
-                return null;
-              }),
-              (l.prototype.Hide = function(t) {
+              (c.prototype.Hide = function(t) {
                 var e = this;
-                this.locking = !0;
-                this.getContainer(this.nowpage);
-                switch (this.nowpage) {
+                switch (((this.locking = !0), this.nowpage)) {
                   case 0:
                     this.page0.onDisable(0);
                     break;
                   case 1:
-                    this.page1.onDisable(0);
+                    this.page_rank.close();
                     break;
                   case 2:
-                    this.page2.onDisable(0);
+                    this.page_friend.close();
                     break;
                   case 3:
-                    this.page3.onDisable(0);
+                    this.page_match.close();
                 }
-                this.me.out.play(0, !1),
+                this.page_east_north.close(),
+                  this.page_title.close(),
+                  this.me.out.play(0, !1),
                   Laya.timer.once(250, this, function() {
                     (e.locking = !1), (e.enable = !1), t && t.run();
                   });
               }),
-              (l.prototype.setPage = function(t) {
+              (c.prototype.setPage = function(t) {
                 var e = this;
                 if (!this.locking && this.nowpage != t) {
                   switch (((this.locking = !0), this.nowpage)) {
@@ -2458,35 +2447,37 @@ setTimeout(
                       this.page0.onDisable(0);
                       break;
                     case 1:
-                      this.page1.onDisable(0);
+                      this.page_rank.close(), this.page_title.close();
                       break;
                     case 2:
-                      this.page2.onDisable(0);
+                      this.page_friend.close(), this.page_title.close();
                       break;
                     case 3:
-                      this.page3.onDisable(0);
+                      this.page_match.close(), this.page_title.close();
                   }
                   this.nowpage = t;
                   var i = 750;
-                  switch (this.nowpage) {
-                    case 0:
-                      this.page0.onEnable(200);
-                      break;
-                    case 1:
-                      this.page1.onEnable(200);
-                      break;
-                    case 2:
-                      this.page2.onEnable(200);
-                      break;
-                    case 3:
-                      this.page3.onEnable(200), (i = 500);
-                  }
-                  Laya.timer.once(i, this, function() {
-                    e.locking = !1;
-                  });
+                  Laya.timer.once(200, this, function() {
+                    switch (e.nowpage) {
+                      case 0:
+                        e.page0.onEnable(0);
+                        break;
+                      case 1:
+                        e.page_rank.show();
+                        break;
+                      case 2:
+                        e.page_friend.show();
+                        break;
+                      case 3:
+                        e.page_match.show(), (i = 500);
+                    }
+                  }),
+                    Laya.timer.once(i, this, function() {
+                      e.locking = !1;
+                    });
                 }
               }),
-              (l.prototype.say = function(e) {
+              (c.prototype.say = function(e) {
                 var i = this,
                   n = t.UI_Sushe.main_chara_info;
                 this.chat_id++;
@@ -2500,24 +2491,23 @@ setTimeout(
                       });
                     })
                   );
-                r &&
-                  (this.chat_block.show(r.words),
-                  (this.sound_channel = r.sound));
+                r && (this.chat_block.show(r.words), (this.sound_channel = r.sound));
               }),
-              (l.prototype.stopsay = function() {
+              (c.prototype.stopsay = function() {
                 this.chat_block.close(!1),
                   this.sound_channel &&
                     (this.sound_channel.stop(),
                     Laya.SoundManager.removeChannel(this.sound_channel),
                     (this.sound_channel = null));
               }),
-              (l.Inst = null),
-              (l.login_helloed = !1),
-              l
+              (c.Inst = null),
+              (c.login_helloed = !1),
+              c
             );
           })(t.UIBase);
-        t.UI_Lobby = o;
+        t.UI_Lobby = h;
       })(uiscript || (uiscript = {}));
+      
 
       //屏蔽切换角色的网络请求
       !(function(t) {
