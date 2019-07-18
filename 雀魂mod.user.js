@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         雀魂mod
 // @namespace    http://tampermonkey.net/
-// @version      0.0.7
+// @version      0.0.8
 // @description  雀魂mod,解锁了全人物道具等。。。
 // @author       You
 // @match        https://*.union-game.com/0/
