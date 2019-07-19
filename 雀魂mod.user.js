@@ -238,135 +238,109 @@ setTimeout(
                 t.UI_Bag_PageDesktop = e;
             })(uiscript || (uiscript = {}));
             //修改牌桌上角色
-            !(function(t) {
-                var e = (function() {
+            ! function(t) {
+                var e = function() {
                     function e() {
                         var e = this;
-                        (this.urls = []), (this.link_index = -1), (this.connect_state = t.EConnectState.none), (this.reconnect_count = 0), (this.reconnect_span = [500, 1e3, 3e3, 6e3, 1e4, 15e3]), (this.playerreconnect = !1), (this.lasterrortime = 0), (this.load_over = !1), (this.loaded_player_count = 0), (this.real_player_count = 0),
-                        app.NetAgent.AddListener2MJ("NotifyPlayerLoadGameReady", Laya.Handler.create(this, function(t) {
-                            app.Log.log("NotifyPlayerLoadGameReady: " + JSON.stringify(t)), (e.loaded_player_count = t.ready_id_list.length),
-                                e.load_over && uiscript.UI_Loading.Inst.enable && uiscript.UI_Loading.Inst.showLoadCount(e.loaded_player_count, e.real_player_count);
-                        }));
+                        this.urls = [], this.link_index = -1, this.connect_state = t.EConnectState.none, this.reconnect_count = 0, this.reconnect_span = [500, 1e3, 3e3, 6e3, 1e4, 15e3], this.playerreconnect = !1, this.lasterrortime = 0, this.load_over = !1, this.loaded_player_count = 0, this.real_player_count = 0, app.NetAgent.AddListener2MJ("NotifyPlayerLoadGameReady", Laya.Handler.create(this, function(t) {
+                            app.Log.log("NotifyPlayerLoadGameReady: " + JSON.stringify(t)), e.loaded_player_count = t.ready_id_list.length, e.load_over && uiscript.UI_Loading.Inst.enable && uiscript.UI_Loading.Inst.showLoadCount(e.loaded_player_count, e.real_player_count)
+                        }))
                     }
-                    return (Object.defineProperty(e, "Inst", {
+                    return Object.defineProperty(e, "Inst", {
                         get: function() {
-                            return null == this._Inst ? (this._Inst = new e()) : this._Inst;
+                            return null == this._Inst ? this._Inst = new e : this._Inst
                         },
                         enumerable: !0,
                         configurable: !0
-                    }), (e.prototype.OpenConnect = function(e, i, n, a, r) {
+                    }), e.prototype.OpenConnect = function(e, i, n, a, r) {
                         var s = this;
-                        uiscript.UI_Loading.Inst.show("enter_mj"),
-                            this.Close(),
-                            view.AudioMgr.StopMusic(),
-                            Laya.timer.once(500, this, function() {
-                                (s.url = ""), (s.token = e), (s.game_uuid = i), (s.server_location = n), (GameMgr.Inst.ingame = !0), (GameMgr.Inst.mj_server_location = n), (GameMgr.Inst.mj_game_token = e), (GameMgr.Inst.mj_game_uuid = i), (s.playerreconnect = a),
-                                s._setState(t.EConnectState.tryconnect), (s.load_over = !1), (s.loaded_player_count = 0), (s.real_player_count = 0),
-                                    s._fetch_gateway(0);
-                            });
-                    }), (e.prototype.Close = function() {
-                        (this.load_over = !1),
-                        app.Log.log("MJNetMgr close"),
-                            this._setState(t.EConnectState.none),
-                            app.NetAgent.Close2MJ(), (this.url = "");
-                    }), (e.prototype._OnConnent = function(e) {
-                        app.Log.log("MJNetMgr _OnConnent event:" + e),
-                            e == Laya.Event.CLOSE || e == Laya.Event.ERROR ? Laya.timer.currTimer - this.lasterrortime > 100 && ((this.lasterrortime = Laya.timer.currTimer), this.connect_state == t.EConnectState.tryconnect ? this._try_to_linknext() : this.connect_state == t.EConnectState.connecting ? view.DesktopMgr.Inst.active ? ((view.DesktopMgr.Inst.duringReconnect = !0), this._setState(t.EConnectState.reconnecting), (this.reconnect_count = 0), this._Reconnect()) : (this._setState(t.EConnectState.disconnect), uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2008)), t.Scene_MJ.Inst.ForceOut()) : this.connect_state == t.EConnectState.reconnecting && this._Reconnect()) : e == Laya.Event.OPEN && (this.connect_state == t.EConnectState.tryconnect ? (this._setState(t.EConnectState.connecting), this._ConnectSuccess()) : this.connect_state == t.EConnectState.reconnecting && (this._setState(t.EConnectState.connecting), this._ConnectSuccess()));
-                    }), (e.prototype._Reconnect = function() {
+                        uiscript.UI_Loading.Inst.show("enter_mj"), this.Close(), view.AudioMgr.StopMusic(), Laya.timer.once(500, this, function() {
+                            s.url = "", s.token = e, s.game_uuid = i, s.server_location = n, GameMgr.Inst.ingame = !0, GameMgr.Inst.mj_server_location = n, GameMgr.Inst.mj_game_token = e, GameMgr.Inst.mj_game_uuid = i, s.playerreconnect = a, s._setState(t.EConnectState.tryconnect), s.load_over = !1, s.loaded_player_count = 0, s.real_player_count = 0, s._fetch_gateway(0)
+                        })
+                    }, e.prototype.Close = function() {
+                        this.load_over = !1, app.Log.log("MJNetMgr close"), this._setState(t.EConnectState.none), app.NetAgent.Close2MJ(), this.url = ""
+                    }, e.prototype._OnConnent = function(e) {
+                        app.Log.log("MJNetMgr _OnConnent event:" + e), e == Laya.Event.CLOSE || e == Laya.Event.ERROR ? Laya.timer.currTimer - this.lasterrortime > 100 && (this.lasterrortime = Laya.timer.currTimer, this.connect_state == t.EConnectState.tryconnect ? this._try_to_linknext() : this.connect_state == t.EConnectState.connecting ? view.DesktopMgr.Inst.active ? (view.DesktopMgr.Inst.duringReconnect = !0, this._setState(t.EConnectState.reconnecting), this.reconnect_count = 0, this._Reconnect()) : (this._setState(t.EConnectState.disconnect), uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2008)), t.Scene_MJ.Inst.ForceOut()) : this.connect_state == t.EConnectState.reconnecting && this._Reconnect()) : e == Laya.Event.OPEN && (this.connect_state == t.EConnectState.tryconnect ? (this._setState(t.EConnectState.connecting), this._ConnectSuccess()) : this.connect_state == t.EConnectState.reconnecting && (this._setState(t.EConnectState.connecting), this._ConnectSuccess()))
+                    }, e.prototype._Reconnect = function() {
                         var e = this;
                         t.LobbyNetMgr.Inst.connect_state == t.EConnectState.none || t.LobbyNetMgr.Inst.connect_state == t.EConnectState.disconnect ? this._setState(t.EConnectState.disconnect) : t.LobbyNetMgr.Inst.connect_state == t.EConnectState.connecting && GameMgr.Inst.logined ? this.reconnect_count >= this.reconnect_span.length ? this._setState(t.EConnectState.disconnect) : (Laya.timer.once(this.reconnect_span[this.reconnect_count], this, function() {
-                            e.connect_state == t.EConnectState.reconnecting && (app.Log.log("MJNetMgr reconnect count:" + e.reconnect_count), app.NetAgent.connect2MJ(e.url, Laya.Handler.create(e, e._OnConnent, null, !1)));
-                        }), this.reconnect_count++) : Laya.timer.once(1e3, this, this._Reconnect);
-                    }), (e.prototype._try_to_linknext = function() {
-                        this.link_index++, (this.url = ""),
-                            app.Log.log("mj _try_to_linknext(" + this.link_index + ") url.length=" + this.urls.length),
-                            this.link_index < 0 || this.link_index >= this.urls.length ? (this._setState(t.EConnectState.none), uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(59)), this._SendDebugInfo(), view.DesktopMgr.Inst && !view.DesktopMgr.Inst.active && t.Scene_MJ.Inst.ForceOut()) : (app.NetAgent.connect2MJ(this.urls[this.link_index].url, Laya.Handler.create(this, this._OnConnent, null, !1)), (this.url = this.urls[this.link_index].url));
-                    }), (e.prototype._fetch_gateway = function(e) {
+                            e.connect_state == t.EConnectState.reconnecting && (app.Log.log("MJNetMgr reconnect count:" + e.reconnect_count), app.NetAgent.connect2MJ(e.url, Laya.Handler.create(e, e._OnConnent, null, !1)))
+                        }), this.reconnect_count++) : Laya.timer.once(1e3, this, this._Reconnect)
+                    }, e.prototype._try_to_linknext = function() {
+                        this.link_index++, this.url = "", app.Log.log("mj _try_to_linknext(" + this.link_index + ") url.length=" + this.urls.length), this.link_index < 0 || this.link_index >= this.urls.length ? (this._setState(t.EConnectState.none), uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(59)), this._SendDebugInfo(), view.DesktopMgr.Inst && !view.DesktopMgr.Inst.active && t.Scene_MJ.Inst.ForceOut()) : (app.NetAgent.connect2MJ(this.urls[this.link_index].url, Laya.Handler.create(this, this._OnConnent, null, !1)), this.url = this.urls[this.link_index].url)
+                    }, e.prototype._fetch_gateway = function(e) {
                         var i = this;
-                        (this.urls = []), (this.link_index = -1),
-                        app.Log.log("mj _fetch_gateway retry_count:" + e);
-                        !(function(n) {
-                            var a = new Laya.HttpRequest();
+                        this.urls = [], this.link_index = -1, app.Log.log("mj _fetch_gateway retry_count:" + e);
+                        ! function(n) {
+                            var a = new Laya.HttpRequest;
                             a.once(Laya.Event.COMPLETE, i, function(n) {
-                                    !(function(n) {
-                                        var a = JSON.parse(n);
-                                        if (
-                                            (app.Log.log("mj _fetch_gateway func_success data = " + n), a.maintenance)) i._setState(t.EConnectState.none),
-                                            uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2009)),
-                                            view.DesktopMgr.Inst.active || t.Scene_MJ.Inst.ForceOut();
-                                        else if (a.servers && a.servers.length > 0) {
-                                            for (var r = a.servers, s = t.Tools.deal_gateway(r), o = 0; o < s.length; o++) i.urls.push({
-                                                name: t.LobbyNetMgr.gateway_name + "_" + o,
-                                                url: s[o]
-                                            });
-                                            (i.link_index = -1), i._try_to_linknext();
-                                        } else e < 1 ? Laya.timer.once(1e3, i, function() {
-                                            i._fetch_gateway(e + 1);
-                                        }) : (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(60)), i._SendDebugInfo(), view.DesktopMgr.Inst && !view.DesktopMgr.Inst.active && t.Scene_MJ.Inst.ForceOut(), i._setState(t.EConnectState.none));
-                                    })(n);
-                                }),
-                                a.once(Laya.Event.ERROR, i, function(n) {
-                                    app.Log.log("mj _fetch_gateway func_error"),
-                                        e < 1 ? Laya.timer.once(500, i, function() {
-                                            i._fetch_gateway(e + 1);
-                                        }) : (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(58)), i._SendDebugInfo(), view.DesktopMgr.Inst.active || t.Scene_MJ.Inst.ForceOut(), i._setState(t.EConnectState.none));
-                                });
+                                ! function(n) {
+                                    var a = JSON.parse(n);
+                                    if (app.Log.log("mj _fetch_gateway func_success data = " + n), a.maintenance) i._setState(t.EConnectState.none), uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2009)), view.DesktopMgr.Inst.active || t.Scene_MJ.Inst.ForceOut();
+                                    else if (a.servers && a.servers.length > 0) {
+                                        for (var r = a.servers, s = t.Tools.deal_gateway(r), o = 0; o < s.length; o++) i.urls.push({
+                                            name: t.LobbyNetMgr.gateway_name + "_" + o,
+                                            url: s[o]
+                                        });
+                                        i.link_index = -1, i._try_to_linknext()
+                                    } else e < 1 ? Laya.timer.once(1e3, i, function() {
+                                        i._fetch_gateway(e + 1)
+                                    }) : (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(60)), i._SendDebugInfo(), view.DesktopMgr.Inst && !view.DesktopMgr.Inst.active && t.Scene_MJ.Inst.ForceOut(), i._setState(t.EConnectState.none))
+                                }(n)
+                            }), a.once(Laya.Event.ERROR, i, function(n) {
+                                app.Log.log("mj _fetch_gateway func_error"), e < 1 ? Laya.timer.once(500, i, function() {
+                                    i._fetch_gateway(e + 1)
+                                }) : (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(58)), i._SendDebugInfo(), view.DesktopMgr.Inst.active || t.Scene_MJ.Inst.ForceOut(), i._setState(t.EConnectState.none))
+                            });
                             var r = [];
-                            r.push("If-Modified-Since"),
-                                r.push("0"), (n += "?service=ws-game-gateway"),
-                                GameMgr.inHttps ? (n += "&protocol=ws&ssl=true") : (n += "&protocol=ws&ssl=false"), (n += "&location=" + i.server_location),
-                                a.send(n, "", "get", "text", r),
-                                app.Log.log("mj _fetch_gateway func_fetch url = " + n);
-                        })(t.LobbyNetMgr.gateway_url);
-                    }), (e.prototype._setState = function(e) {
-                        (this.connect_state = e),
-                        GameMgr.inRelease || (null != uiscript.UI_Common.Inst && (e == t.EConnectState.none ? (uiscript.UI_Common.Inst.label_net_mj.text = "") : e == t.EConnectState.tryconnect ? ((uiscript.UI_Common.Inst.label_net_mj.text = "尝试连接麻将服务器"), (uiscript.UI_Common.Inst.label_net_mj.color = "#000000")) : e == t.EConnectState.connecting ? ((uiscript.UI_Common.Inst.label_net_mj.text = "麻将服务器：正常"), (uiscript.UI_Common.Inst.label_net_mj.color = "#00ff00")) : e == t.EConnectState.disconnect ? ((uiscript.UI_Common.Inst.label_net_mj.text = "麻将服务器：断开连接"), (uiscript.UI_Common.Inst.label_net_mj.color = "#ff0000"), uiscript.UI_Disconnect.Inst && uiscript.UI_Disconnect.Inst.show()) : e == t.EConnectState.reconnecting && ((uiscript.UI_Common.Inst.label_net_mj.text = "麻将服务器：正在重连"), (uiscript.UI_Common.Inst.label_net_mj.color = "#ff0000"), uiscript.UI_Disconnect.Inst && uiscript.UI_Disconnect.Inst.show())));
-                    }), (e.prototype._ConnectSuccess = function() {
+                            r.push("If-Modified-Since"), r.push("0"), n += "?service=ws-game-gateway", GameMgr.inHttps ? n += "&protocol=ws&ssl=true" : n += "&protocol=ws&ssl=false", n += "&location=" + i.server_location, a.send(n, "", "get", "text", r), app.Log.log("mj _fetch_gateway func_fetch url = " + n)
+                        }(t.LobbyNetMgr.gateway_url)
+                    }, e.prototype._setState = function(e) {
+                        this.connect_state = e, GameMgr.inRelease || null != uiscript.UI_Common.Inst && (e == t.EConnectState.none ? uiscript.UI_Common.Inst.label_net_mj.text = "" : e == t.EConnectState.tryconnect ? (uiscript.UI_Common.Inst.label_net_mj.text = "尝试连接麻将服务器", uiscript.UI_Common.Inst.label_net_mj.color = "#000000") : e == t.EConnectState.connecting ? (uiscript.UI_Common.Inst.label_net_mj.text = "麻将服务器：正常", uiscript.UI_Common.Inst.label_net_mj.color = "#00ff00") : e == t.EConnectState.disconnect ? (uiscript.UI_Common.Inst.label_net_mj.text = "麻将服务器：断开连接", uiscript.UI_Common.Inst.label_net_mj.color = "#ff0000", uiscript.UI_Disconnect.Inst && uiscript.UI_Disconnect.Inst.show()) : e == t.EConnectState.reconnecting && (uiscript.UI_Common.Inst.label_net_mj.text = "麻将服务器：正在重连", uiscript.UI_Common.Inst.label_net_mj.color = "#ff0000", uiscript.UI_Disconnect.Inst && uiscript.UI_Disconnect.Inst.show()))
+                    }, e.prototype._ConnectSuccess = function() {
                         var e = this;
-                        app.Log.log("MJNetMgr _ConnectSuccess "), (this.load_over = !1),
-                            app.NetAgent.sendReq2MJ("FastTest", "authGame", {
-                                account_id: GameMgr.Inst.account_id,
-                                token: this.token,
-                                game_uuid: this.game_uuid
-                            }, function(i, n) {
-                                if (i || n.error) uiscript.UIMgr.Inst.showNetReqError("authGame", i, n),
-                                    t.Scene_MJ.Inst.GameEnd(),
-                                    view.AudioMgr.PlayMusic("music/lobby.mp3");
-                                else {
-                                    app.Log.log("麻将桌验证通过：" + JSON.stringify(n)),
-                                        uiscript.UI_Loading.Inst.setProgressVal(0.1);
-                                    var a = [];
-                                    view.DesktopMgr.player_link_state = n.state_list;
-                                    var r = t.Tools.strOfLocalization(2003),
-                                        s = n.game_config.mode;
-                                    view.ERuleMode.Liqi4;
-                                    s.mode < 10 ? (view.ERuleMode.Liqi4, (e.real_player_count = 4)) : s.mode < 20 && (view.ERuleMode.Liqi3, (e.real_player_count = 3));
-                                    for (h = 0; h < e.real_player_count; h++) a.push(null);
-                                    s.extendinfo && (r = t.Tools.strOfLocalization(2004)),
-                                        s.detail_rule && s.detail_rule.ai_level && (1 === s.detail_rule.ai_level && (r = t.Tools.strOfLocalization(2003)), 2 === s.detail_rule.ai_level && (r = t.Tools.strOfLocalization(2004)));
-                                    for (h = 0; h < n.seat_list.length; h++) {
-                                        var o = n.seat_list[h];
-                                        if (0 == o) a[h] = {
-                                            nickname: r,
-                                            avatar_id: 400101,
-                                            level: {
-                                                id: 10101
-                                            },
-                                            character: {
-                                                charid: 200001,
-                                                level: 0,
-                                                exp: 0,
-                                                views: [],
-                                                skin: 400101,
-                                                is_upgraded: !1
-                                            }
-                                        };
-                                        else {
-                                            0;
-                                            for (var l = 0; l < n.players.length; l++)
-                                                if (n.players[l].account_id == o) {
-                                                    a[h] = n.players[l];
-                                                    console.log("n_id:" + a[h].account_id);
+                        app.Log.log("MJNetMgr _ConnectSuccess "), this.load_over = !1, app.NetAgent.sendReq2MJ("FastTest", "authGame", {
+                            account_id: GameMgr.Inst.account_id,
+                            token: this.token,
+                            game_uuid: this.game_uuid
+                        }, function(i, n) {
+                            if (i || n.error) uiscript.UIMgr.Inst.showNetReqError("authGame", i, n), t.Scene_MJ.Inst.GameEnd(), view.AudioMgr.PlayMusic("music/lobby.mp3");
+                            else {
+                                app.Log.log("麻将桌验证通过：" + JSON.stringify(n)), uiscript.UI_Loading.Inst.setProgressVal(.1);
+                                var a = [];
+                                view.DesktopMgr.player_link_state = n.state_list;
+                                var r = t.Tools.strOfLocalization(2003),
+                                    s = n.game_config.mode;
+                                view.ERuleMode.Liqi4;
+                                s.mode < 10 ? (view.ERuleMode.Liqi4, e.real_player_count = 4) : s.mode < 20 && (view.ERuleMode.Liqi3, e.real_player_count = 3);
+                                for (h = 0; h < e.real_player_count; h++) a.push(null);
+                                s.extendinfo && (r = t.Tools.strOfLocalization(2004)), s.detail_rule && s.detail_rule.ai_level && (1 === s.detail_rule.ai_level && (r = t.Tools.strOfLocalization(2003)), 2 === s.detail_rule.ai_level && (r = t.Tools.strOfLocalization(2004)));
+                                for (h = 0; h < n.seat_list.length; h++) {
+                                    var o = n.seat_list[h];
+                                    if (0 == o) a[h] = {
+                                        nickname: r,
+                                        avatar_id: 400101,
+                                        level: {
+                                            id: 10101
+                                        },
+                                        level3: {
+                                            id: 20101
+                                        },
+                                        character: {
+                                            charid: 200001,
+                                            level: 0,
+                                            exp: 0,
+                                            views: [],
+                                            skin: 400101,
+                                            is_upgraded: !1
+                                        }
+                                    };
+                                    else {
+                                        0;
+                                        for (var l = 0; l < n.players.length; l++)
+                                            if (n.players[l].account_id == o) {
+                                                a[h] = n.players[l];
+                                                console.log("n_id:" + a[h].account_id);
                                                     console.log(GameMgr.Inst.account_id);
                                                     //修改牌桌上人物头像及皮肤
                                                     if (a[h].account_id == GameMgr.Inst.account_id) {
@@ -380,79 +354,70 @@ setTimeout(
                                                         }), (a[h].avatar_id = GameMgr.Inst.account_data.my_character.skin);
                                                     }
                                                     //end
-                                                    break;
-                                                }
-                                        }
+                                                break
+                                            }
                                     }
-                                    for (var h = 0; h < e.real_player_count; h++) null == a[h] && (a[h] = {
-                                        account: 0,
-                                        nickname: t.Tools.strOfLocalization(2010),
-                                        avatar_id: 400101,
-                                        level: {
-                                            id: 10101
-                                        },
-                                        character: {
-                                            charid: 200001,
-                                            level: 0,
-                                            exp: 0,
-                                            views: [],
-                                            skin: 400101,
-                                            is_upgraded: !1
-                                        }
-                                    });
-                                    (e.loaded_player_count = n.ready_id_list.length),
-                                    e._AuthSuccess(a, n.is_game_start, n.game_config.toJSON());
                                 }
-                            });
-                    }), (e.prototype._AuthSuccess = function(e, i, n) {
+                                for (var h = 0; h < e.real_player_count; h++) null == a[h] && (a[h] = {
+                                    account: 0,
+                                    nickname: t.Tools.strOfLocalization(2010),
+                                    avatar_id: 400101,
+                                    level: {
+                                        id: 10101
+                                    },
+                                    level3: {
+                                        id: 20101
+                                    },
+                                    character: {
+                                        charid: 200001,
+                                        level: 0,
+                                        exp: 0,
+                                        views: [],
+                                        skin: 400101,
+                                        is_upgraded: !1
+                                    }
+                                });
+                                e.loaded_player_count = n.ready_id_list.length, e._AuthSuccess(a, n.is_game_start, n.game_config.toJSON())
+                            }
+                        })
+                    }, e.prototype._AuthSuccess = function(e, i, n) {
                         var a = this;
-                        view.DesktopMgr.Inst && view.DesktopMgr.Inst.active ? ((this.load_over = !0), Laya.timer.once(500, this, function() {
-                            app.Log.log("重连信息1 round_id:" + view.DesktopMgr.Inst.round_id + " step:" + view.DesktopMgr.Inst.current_step),
-                                view.DesktopMgr.Inst.Reset(), (view.DesktopMgr.Inst.duringReconnect = !0),
-                                uiscript.UI_Loading.Inst.setProgressVal(0.2),
-                                app.NetAgent.sendReq2MJ("FastTest", "syncGame", {
-                                    round_id: view.DesktopMgr.Inst.round_id,
-                                    step: view.DesktopMgr.Inst.current_step
-                                }, function(e, i) {
-                                    e || i.error ? (uiscript.UIMgr.Inst.showNetReqError("syncGame", e, i), t.Scene_MJ.Inst.ForceOut()) : (app.Log.log("[syncGame] " + JSON.stringify(i)), i.isEnd ? (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2011)), t.Scene_MJ.Inst.GameEnd()) : (uiscript.UI_Loading.Inst.setProgressVal(0.3), view.DesktopMgr.Inst.fetchLinks(), view.DesktopMgr.Inst.Reset(), (view.DesktopMgr.Inst.duringReconnect = !0), view.DesktopMgr.Inst.syncGameByStep(i.game_restore)));
-                                });
+                        view.DesktopMgr.Inst && view.DesktopMgr.Inst.active ? (this.load_over = !0, Laya.timer.once(500, this, function() {
+                            app.Log.log("重连信息1 round_id:" + view.DesktopMgr.Inst.round_id + " step:" + view.DesktopMgr.Inst.current_step), view.DesktopMgr.Inst.Reset(), view.DesktopMgr.Inst.duringReconnect = !0, uiscript.UI_Loading.Inst.setProgressVal(.2), app.NetAgent.sendReq2MJ("FastTest", "syncGame", {
+                                round_id: view.DesktopMgr.Inst.round_id,
+                                step: view.DesktopMgr.Inst.current_step
+                            }, function(e, i) {
+                                e || i.error ? (uiscript.UIMgr.Inst.showNetReqError("syncGame", e, i), t.Scene_MJ.Inst.ForceOut()) : (app.Log.log("[syncGame] " + JSON.stringify(i)), i.isEnd ? (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2011)), t.Scene_MJ.Inst.GameEnd()) : (uiscript.UI_Loading.Inst.setProgressVal(.3), view.DesktopMgr.Inst.fetchLinks(), view.DesktopMgr.Inst.Reset(), view.DesktopMgr.Inst.duringReconnect = !0, view.DesktopMgr.Inst.syncGameByStep(i.game_restore)))
+                            })
                         })) : t.Scene_MJ.Inst.openMJRoom(e, Laya.Handler.create(this, function() {
-                            view.DesktopMgr.Inst.initRoom(n, e, GameMgr.Inst.account_id, view.EMJMode.play, Laya.Handler.create(a, function() {
+                            view.DesktopMgr.Inst.initRoom(JSON.parse(JSON.stringify(n)), e, GameMgr.Inst.account_id, view.EMJMode.play, Laya.Handler.create(a, function() {
                                 i ? Laya.timer.frameOnce(10, a, function() {
-                                    app.Log.log("重连信息2 round_id:-1 step:" + 1e6),
-                                        view.DesktopMgr.Inst.Reset(), (view.DesktopMgr.Inst.duringReconnect = !0),
-                                        app.NetAgent.sendReq2MJ("FastTest", "syncGame", {
-                                            round_id: "-1",
-                                            step: 1e6
-                                        }, function(e, i) {
-                                            app.Log.log("syncGame " + JSON.stringify(i)),
-                                                e || i.error ? (uiscript.UIMgr.Inst.showNetReqError("syncGame", e, i), t.Scene_MJ.Inst.ForceOut()) : (uiscript.UI_Loading.Inst.setProgressVal(1), view.DesktopMgr.Inst.fetchLinks(), a._PlayerReconnectSuccess(i));
-                                        });
+                                    app.Log.log("重连信息2 round_id:-1 step:" + 1e6), view.DesktopMgr.Inst.Reset(), view.DesktopMgr.Inst.duringReconnect = !0, app.NetAgent.sendReq2MJ("FastTest", "syncGame", {
+                                        round_id: "-1",
+                                        step: 1e6
+                                    }, function(e, i) {
+                                        app.Log.log("syncGame " + JSON.stringify(i)), e || i.error ? (uiscript.UIMgr.Inst.showNetReqError("syncGame", e, i), t.Scene_MJ.Inst.ForceOut()) : (uiscript.UI_Loading.Inst.setProgressVal(1), view.DesktopMgr.Inst.fetchLinks(), a._PlayerReconnectSuccess(i))
+                                    })
                                 }) : Laya.timer.frameOnce(10, a, function() {
-                                    app.Log.log("send enterGame"),
-                                        view.DesktopMgr.Inst.Reset(), (view.DesktopMgr.Inst.duringReconnect = !0),
-                                        app.NetAgent.sendReq2MJ("FastTest", "enterGame", {}, function(e, i) {
-                                            e || i.error ? (uiscript.UIMgr.Inst.showNetReqError("enterGame", e, i), t.Scene_MJ.Inst.ForceOut()) : (uiscript.UI_Loading.Inst.setProgressVal(1), app.Log.log("enterGame"), a._EnterGame(i), view.DesktopMgr.Inst.fetchLinks());
-                                        });
-                                });
-                            }));
+                                    app.Log.log("send enterGame"), view.DesktopMgr.Inst.Reset(), view.DesktopMgr.Inst.duringReconnect = !0, app.NetAgent.sendReq2MJ("FastTest", "enterGame", {}, function(e, i) {
+                                        e || i.error ? (uiscript.UIMgr.Inst.showNetReqError("enterGame", e, i), t.Scene_MJ.Inst.ForceOut()) : (uiscript.UI_Loading.Inst.setProgressVal(1), app.Log.log("enterGame"), a._EnterGame(i), view.DesktopMgr.Inst.fetchLinks())
+                                    })
+                                })
+                            }))
                         }), Laya.Handler.create(this, function(t) {
-                            return uiscript.UI_Loading.Inst.setProgressVal(0.1 + 0.8 * t);
-                        }, null, !1));
-                    }), (e.prototype._EnterGame = function(e) {
-                        app.Log.log("正常进入游戏: " + JSON.stringify(e)),
-                            e.is_end ? (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2011)), t.Scene_MJ.Inst.GameEnd()) : e.game_restore ? view.DesktopMgr.Inst.syncGameByStep(e.game_restore) : (console.log("正常进入游戏：" + Laya.Stat.currentMemorySize / 1024 / 1024 + " MB"), (this.load_over = !0), this.load_over && uiscript.UI_Loading.Inst.enable && uiscript.UI_Loading.Inst.showLoadCount(this.loaded_player_count, this.real_player_count), (view.DesktopMgr.Inst.duringReconnect = !1), view.DesktopMgr.Inst.StartChainAction(0));
-                    }), (e.prototype._PlayerReconnectSuccess = function(e) {
-                        app.Log.log("_PlayerReconnectSuccess data:" + JSON.stringify(e)),
-                            e.isEnd ? (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2011)), t.Scene_MJ.Inst.GameEnd()) : e.game_restore ? view.DesktopMgr.Inst.syncGameByStep(e.game_restore) : (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2012)), t.Scene_MJ.Inst.ForceOut());
-                    }), (e.prototype._SendDebugInfo = function() {
+                            return uiscript.UI_Loading.Inst.setProgressVal(.1 + .8 * t)
+                        }, null, !1))
+                    }, e.prototype._EnterGame = function(e) {
+                        app.Log.log("正常进入游戏: " + JSON.stringify(e)), e.is_end ? (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2011)), t.Scene_MJ.Inst.GameEnd()) : e.game_restore ? view.DesktopMgr.Inst.syncGameByStep(e.game_restore) : (console.log("正常进入游戏：" + Laya.Stat.currentMemorySize / 1024 / 1024 + " MB"), this.load_over = !0, this.load_over && uiscript.UI_Loading.Inst.enable && uiscript.UI_Loading.Inst.showLoadCount(this.loaded_player_count, this.real_player_count), view.DesktopMgr.Inst.duringReconnect = !1, view.DesktopMgr.Inst.StartChainAction(0))
+                    }, e.prototype._PlayerReconnectSuccess = function(e) {
+                        app.Log.log("_PlayerReconnectSuccess data:" + JSON.stringify(e)), e.isEnd ? (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2011)), t.Scene_MJ.Inst.GameEnd()) : e.game_restore ? view.DesktopMgr.Inst.syncGameByStep(e.game_restore) : (uiscript.UIMgr.Inst.ShowErrorInfo(t.Tools.strOfLocalization(2012)), t.Scene_MJ.Inst.ForceOut())
+                    }, e.prototype._SendDebugInfo = function() {
                         var t = {};
-                        (t.type = "未连接了!!!!!!"), (t.logs = app.Log.getCacheLog()),
-                        GameMgr.Inst.postInfo2Server(t);
-                    }), (e._Inst = null), e);
-                })();
-                t.MJNetMgr = e;
-            })(game || (game = {}));
+                        t.type = "未连接了!!!!!!", t.logs = app.Log.getCacheLog(), GameMgr.Inst.postInfo2Server(t)
+                    }, e._Inst = null, e
+                }();
+                t.MJNetMgr = e
+            }(game || (game = {}));
             //设置全部道具
             !(function(t) {
                 var e;
@@ -1300,48 +1265,42 @@ setTimeout(
                 t.UI_Nickname = e;
             })(uiscript || (uiscript = {}));
             //读取战绩
-            !(function(t) {
-                var e = (function(e) {
+            ! function(t) {
+                var e = function(e) {
                     function i() {
-                        var t = e.call(this, "chs" == GameMgr.client_language ? new ui.both_ui.otherplayerinfoUI() : new ui.both_ui.otherplayerinfo_enUI()) || this;
-                        return (
-                            (t.account_id = 0), (t.origin_x = 0), (t.origin_y = 0), (t.root = null), (t.title = null), (t.level = null), (t.btn_addfriend = null), (t.illust = null), (t.label_name = null), (t.detail_data = null), (t.locking = !1), (t.tab_info4 = null), (t.tab_info3 = null), (t.tab_note = null), (t.tab_img_dark = ""), (t.tab_img_chosen = ""), (i.Inst = t), t);
+                        var t = e.call(this, "chs" == GameMgr.client_language ? new ui.both_ui.otherplayerinfoUI : new ui.both_ui.otherplayerinfo_enUI) || this;
+                        return t.account_id = 0, t.origin_x = 0, t.origin_y = 0, t.root = null, t.title = null, t.level = null, t.btn_addfriend = null, t.illust = null, t.label_name = null, t.detail_data = null, t.locking = !1, t.tab_info4 = null, t.tab_info3 = null, t.tab_note = null, t.tab_img_dark = "", t.tab_img_chosen = "", t.player_data = null, t.tab_index = 1, i.Inst = t, t
                     }
-                    return (__extends(i, e), (i.prototype.onCreate = function() {
+                    return __extends(i, e), i.prototype.onCreate = function() {
                         var e = this;
-                        "chs" == GameMgr.client_language ? ((this.tab_img_chosen = game.Tools.localUISrc("myres/bothui/info_tab_chosen.png")), (this.tab_img_dark = game.Tools.localUISrc("myres/bothui/info_tab_dark.png"))) : ((this.tab_img_chosen = game.Tools.localUISrc("myres/bothui/info_tabheng_chosen.png")), (this.tab_img_dark = game.Tools.localUISrc("myres/bothui/info_tabheng_dark.png"))), (this.root = this.me.getChildByName("root")), (this.origin_x = this.root.x), (this.origin_y = this.root.y), (this.container_info = this.root.getChildByName("container_info")), (this.title = new t.UI_PlayerTitle(this.container_info.getChildByName("title"))), (this.label_name = this.container_info.getChildByName("ID")), (this.level = new t.UI_Level(this.container_info.getChildByName("rank"))), (this.detail_data = new t.UI_PlayerData(this.container_info.getChildByName("data"))), (this.illust = new t.UI_Character_Skin(this.root.getChildByName("illust").getChildByName("illust"))), (this.btn_addfriend = this.container_info.getChildByName("btn_add")), (this.btn_addfriend.clickHandler = Laya.Handler.create(this, function() {
-                            (e.btn_addfriend.visible = !1),
-                            app.NetAgent.sendReq2Lobby("Lobby", "applyFriend", {
+                        "chs" == GameMgr.client_language ? (this.tab_img_chosen = game.Tools.localUISrc("myres/bothui/info_tab_chosen.png"), this.tab_img_dark = game.Tools.localUISrc("myres/bothui/info_tab_dark.png")) : (this.tab_img_chosen = game.Tools.localUISrc("myres/bothui/info_tabheng_chosen.png"), this.tab_img_dark = game.Tools.localUISrc("myres/bothui/info_tabheng_dark.png")), this.root = this.me.getChildByName("root"), this.origin_x = this.root.x, this.origin_y = this.root.y, this.container_info = this.root.getChildByName("container_info"), this.title = new t.UI_PlayerTitle(this.container_info.getChildByName("title")), this.label_name = this.container_info.getChildByName("ID"), this.level = new t.UI_Level(this.container_info.getChildByName("rank")), this.detail_data = new t.UI_PlayerData(this.container_info.getChildByName("data")), this.illust = new t.UI_Character_Skin(this.root.getChildByName("illust").getChildByName("illust")), this.btn_addfriend = this.container_info.getChildByName("btn_add"), this.btn_addfriend.clickHandler = Laya.Handler.create(this, function() {
+                            e.btn_addfriend.visible = !1, app.NetAgent.sendReq2Lobby("Lobby", "applyFriend", {
                                 target_id: e.account_id
-                            }, function(t, e) {});
-                        }, null, !1)), (this.root.getChildByName("btn_close").clickHandler = Laya.Handler.create(this, function() {
-                            e.close();
-                        }, null, !1)), (this.note = new t.UI_PlayerNote(this.root.getChildByName("container_note"), null)), (this.tab_info4 = this.root.getChildByName("tab_info4")), (this.tab_info4.clickHandler = Laya.Handler.create(this, function() {
-                            e.locking || ((e.container_info.visible = !0), (e.tab_info4.skin = e.tab_img_chosen), (e.tab_info3.skin = e.tab_img_dark), (e.tab_note.skin = e.tab_img_dark), e.note.close(), e.detail_data.changeMJCategory(1));
-                        }, null, !1)), (this.tab_info3 = this.root.getChildByName("tab_info3")), (this.tab_info3.clickHandler = Laya.Handler.create(this, function() {
-                            e.locking || ((e.container_info.visible = !0), (e.tab_info4.skin = e.tab_img_dark), (e.tab_info3.skin = e.tab_img_chosen), (e.tab_note.skin = e.tab_img_dark), e.note.close(), e.detail_data.changeMJCategory(2));
-                        }, null, !1)), (this.tab_note = this.root.getChildByName("tab_note")), (this.tab_note.clickHandler = Laya.Handler.create(this, function() {
-                            e.locking || (e.container_info.visible && ((e.container_info.visible = !1), (e.tab_info4.skin = e.tab_img_dark), (e.tab_info3.skin = e.tab_img_dark), (e.tab_note.skin = e.tab_img_chosen), e.note.show()));
-                        }, null, !1)), (this.locking = !1);
-                    }), (i.prototype.show = function(e) {
-                        var i = this;
-                        GameMgr.Inst.BehavioralStatistics(14), (this.account_id = e), (this.enable = !0), (this.locking = !0), (this.root.y = 560),
-                            t.UIBase.anim_pop_out(this.root, Laya.Handler.create(this, function() {
-                                i.locking = !1;
-                            })),
-                            this.detail_data.reset(),
-                            app.NetAgent.sendReq2Lobby("Lobby", "fetchAccountStatisticInfo", {
-                                account_id: e
-                            }, function(e, n) {
-                                e || n.error ? t.UIMgr.Inst.showNetReqError("fetchAccountStatisticInfo", e, n) : (app.Log.log(JSON.stringify(n)), i.detail_data.setData(n));
-                            }), (this.tab_info4.skin = this.tab_img_chosen), (this.tab_info3.skin = this.tab_img_dark), (this.tab_note.skin = this.tab_img_dark), (this.container_info.visible = !0),
-                            this.note.close(),
-                            this.note.init_data(e),
-                            this.refreshBaseInfo();
-                    }), (i.prototype.refreshBaseInfo = function() {
+                            }, function(t, e) {})
+                        }, null, !1), this.root.getChildByName("btn_close").clickHandler = Laya.Handler.create(this, function() {
+                            e.close()
+                        }, null, !1), this.note = new t.UI_PlayerNote(this.root.getChildByName("container_note"), null), this.tab_info4 = this.root.getChildByName("tab_info4"), this.tab_info4.clickHandler = Laya.Handler.create(this, function() {
+                            e.locking || 1 != e.tab_index && e.changeMJCategory(1)
+                        }, null, !1), this.tab_info3 = this.root.getChildByName("tab_info3"), this.tab_info3.clickHandler = Laya.Handler.create(this, function() {
+                            e.locking || 2 != e.tab_index && e.changeMJCategory(2)
+                        }, null, !1), this.tab_note = this.root.getChildByName("tab_note"), this.tab_note.clickHandler = Laya.Handler.create(this, function() {
+                            if (!e.locking) {
+                                var i = Date.now();
+                                "chs" == GameMgr.client_language && i >= 15595776e5 && i <= 15601824e5 ? t.UIMgr.Inst.ShowErrorInfo("该功能正在维护") : e.container_info.visible && (e.container_info.visible = !1, e.tab_info4.skin = e.tab_img_dark, e.tab_info3.skin = e.tab_img_dark, e.tab_note.skin = e.tab_img_chosen, e.tab_index = 3, e.note.show())
+                            }
+                        }, null, !1), this.locking = !1
+                    }, i.prototype.show = function(e, i) {
+                        var n = this;
+                        void 0 === i && (i = 1), GameMgr.Inst.BehavioralStatistics(14), this.account_id = e, this.enable = !0, this.locking = !0, this.root.y = 560, this.player_data = null, t.UIBase.anim_pop_out(this.root, Laya.Handler.create(this, function() {
+                            n.locking = !1
+                        })), this.detail_data.reset(), app.NetAgent.sendReq2Lobby("Lobby", "fetchAccountStatisticInfo", {
+                            account_id: e
+                        }, function(e, i) {
+                            e || i.error ? t.UIMgr.Inst.showNetReqError("fetchAccountStatisticInfo", e, i) : (n.detail_data.setData(i), n.changeMJCategory(n.tab_index))
+                        }), this.note.init_data(e), this.refreshBaseInfo(), this.tab_index = i, this.container_info.visible = !0, this.tab_info4.skin = 1 == this.tab_index ? this.tab_img_chosen : this.tab_img_dark, this.tab_info3.skin = 2 == this.tab_index ? this.tab_img_chosen : this.tab_img_dark, this.tab_note.skin = this.tab_img_dark, this.note.close(), this.player_data ? (this.level.id = this.player_data[1 == this.tab_index ? "level" : "level3"].id, this.level.exp = this.player_data[1 == this.tab_index ? "level" : "level3"].score) : (this.level.id = 1 == this.tab_index ? 10101 : 20101, this.level.exp = 0)
+                    }, i.prototype.refreshBaseInfo = function() {
                         var e = this;
-                        (this.level.id = 0), (this.title.id = 0), (this.illust.me.visible = !1), (this.label_name.text = ""), (this.btn_addfriend.visible = !1),
-                        app.NetAgent.sendReq2Lobby("Lobby", "fetchAccountInfo", {
+                        this.title.id = 0, this.illust.me.visible = !1, this.label_name.text = "", this.btn_addfriend.visible = !1, app.NetAgent.sendReq2Lobby("Lobby", "fetchAccountInfo", {
                             account_id: this.account_id
                         }, function(i, n) {
                             if (i || n.error) t.UIMgr.Inst.showNetReqError("fetchAccountInfo", i, n);
@@ -1352,25 +1311,22 @@ setTimeout(
                                     a.avatar_id = GameMgr.Inst.account_data.my_character.skin;
                                 }
                                 //end
-                                (e.label_name.text = a.nickname), (e.title.id = game.Tools.titleLocalization(a.account_id, a.title)), (e.level.id = a.level.id), (e.level.exp = a.level.score), (e.illust.me.visible = !0),
-                                e.illust.setSkin(a.avatar_id, "waitingroom"),
-                                    game.Tools.is_same_zone(GameMgr.Inst.account_id, e.account_id) && e.account_id != GameMgr.Inst.account_id && null == game.FriendMgr.find(e.account_id) ? (e.btn_addfriend.visible = !0) : (e.btn_addfriend.visible = !1),
-                                    e.note.sign.setSign(a.signature);
+                                e.player_data = a, e.label_name.text = a.nickname, e.title.id = game.Tools.titleLocalization(a.account_id, a.title), e.level.id = a.level.id, e.level.id = e.player_data[1 == e.tab_index ? "level" : "level3"].id, e.level.exp = e.player_data[1 == e.tab_index ? "level" : "level3"].score, e.illust.me.visible = !0, e.illust.setSkin(a.avatar_id, "waitingroom"), game.Tools.is_same_zone(GameMgr.Inst.account_id, e.account_id) && e.account_id != GameMgr.Inst.account_id && null == game.FriendMgr.find(e.account_id) ? e.btn_addfriend.visible = !0 : e.btn_addfriend.visible = !1, e.note.sign.setSign(a.signature)
                             }
-                        });
-                    }), (i.prototype.close = function() {
+                        })
+                    }, i.prototype.changeMJCategory = function(t) {
+                        this.tab_index = t, this.container_info.visible = !0, this.detail_data.changeMJCategory(t), this.tab_info4.skin = 1 == this.tab_index ? this.tab_img_chosen : this.tab_img_dark, this.tab_info3.skin = 2 == this.tab_index ? this.tab_img_chosen : this.tab_img_dark, this.tab_note.skin = this.tab_img_dark, this.note.close(), this.player_data ? (this.level.id = this.player_data[1 == this.tab_index ? "level" : "level3"].id, this.level.exp = this.player_data[1 == this.tab_index ? "level" : "level3"].score) : (this.level.id = 1 == this.tab_index ? 10101 : 20101, this.level.exp = 0)
+                    }, i.prototype.close = function() {
                         var e = this;
-                        this.enable && (this.locking || ((this.locking = !0), this.detail_data.close(), t.UIBase.anim_pop_hide(this.root, Laya.Handler.create(this, function() {
-                            (e.locking = !1), (e.enable = !1);
-                        }))));
-                    }), (i.prototype.onDisable = function() {
-                        this.detail_data.close(),
-                            this.illust.clear(),
-                            Laya.loader.clearTextureRes(this.level.icon.skin);
-                    }), (i.Inst = null), i);
-                })(t.UIBase);
-                t.UI_OtherPlayerInfo = e;
-            })(uiscript || (uiscript = {}));
+                        this.enable && (this.locking || (this.locking = !0, this.detail_data.close(), t.UIBase.anim_pop_hide(this.root, Laya.Handler.create(this, function() {
+                            e.locking = !1, e.enable = !1
+                        }))))
+                    }, i.prototype.onDisable = function() {
+                        this.detail_data.close(), this.illust.clear(), Laya.loader.clearTextureRes(this.level.icon.skin)
+                    }, i.Inst = null, i
+                }(t.UIBase);
+                t.UI_OtherPlayerInfo = e
+            }(uiscript || (uiscript = {}));
             //宿舍相关
             !(function(t) {
                 var e = (function() {
@@ -1466,7 +1422,7 @@ setTimeout(
                                         //   i.main_character_id = a.main_character_id;
                                         //人物初始化修改寮舍人物（皮肤好感额外表情）----fxxk
                                         i.characters = [];
-                                        for (var j = 1; j <= 13; j++) {
+                                        for (var j = 1; j <= 14; j++) {
                                             var id = 200000 + j;
                                             var skin = 400002 + j * 100;
                                             //只有占卜师不能结婚
