@@ -4,12 +4,12 @@
 // @version      0.0.9
 // @description  雀魂mod,解锁了全人物道具等。。。
 // @author       You
-// @match        https://*.union-game.com/0/
+// @match        https://www.majsoul.com/1/
 // @grant        none
 // ==/UserScript==
 //cfg.item_definition.item.map_  物品一览
 //1代表一姬,2代表二阶堂，以此类推
-var setcharacter = 12; //人物
+var setcharacter = 16; //人物
 var charid = "charid=";
 var skin = "skin="
 var ca = document.cookie.split(';');
